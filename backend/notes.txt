@@ -1,0 +1,7 @@
+some notes
+
+
+//benötigte DB:
+docker run -d --name postgres-fbwa-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=securepassword -e POSTGRES_DB=backenddb -p 5432:5432 ankane/pgvector
+
+

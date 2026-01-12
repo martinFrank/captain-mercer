@@ -1,0 +1,20 @@
+<configuration scan="true">
+
+    <!-- Appender für die Konsole -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Pattern für die Logzeilen -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Spezifische Logger-Level -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="com.github.martinfrank.elitegames" level="DEBUG"/>
+
+    <!-- Root-Logger -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
