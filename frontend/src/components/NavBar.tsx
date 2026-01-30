@@ -21,10 +21,10 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        <Link to="/" className="navbar-brand">
+        <div className="navbar-brand">
           <div className="navbar-icon">🗡️</div>
           Adventure Game
-        </Link>
+        </div>
         
         <ul className="navbar-nav">
           <li>
@@ -33,14 +33,6 @@ export default function NavBar() {
               className={`navbar-link ${isActiveLink('/') ? 'active' : ''}`}
             >
               Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/adventure"
-              className={`navbar-link ${isActiveLink('/adventure') ? 'active' : ''}`}
-            >
-              Adventure
             </Link>
           </li>
           <li>

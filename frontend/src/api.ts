@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({ 
-  baseURL: "https://elitegames.v6.rocks/fbwa-backend-api"
+  // baseURL: "https://elitegames.v6.rocks/fbwa-backend-api"
+  baseURL: "http://localhost:8080/captain-mercer-api"
 });
 
 api.interceptors.request.use((config) => {

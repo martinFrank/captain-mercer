@@ -1,7 +1,7 @@
-import { useState } from "react"; 
+import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+
 import { api } from "../api";
 
 export default function LoginPage() {
@@ -16,7 +16,7 @@ export default function LoginPage() {
         e.preventDefault();
         setIsLoading(true);
         setError("");
-        
+
         try {
             const res = await api.post("/api/auth/login", {
                 username,
@@ -36,19 +36,21 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
-                <div className="login-header">
-                    <div className="adventure-icon">
+        <div className="page-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+            <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
+                <div className="text-center" style={{ marginBottom: "var(--spacing-xl)" }}>
+                    <div className="adventure-icon" style={{ margin: "0 auto var(--spacing-md)" }}>
                         🗡️
                     </div>
-                    <h1 className="login-title">Adventure Game</h1>
-                    <p className="login-subtitle">Willkommen zurück, Abenteurer!</p>
+                    <h1 className="title">Adventure Game</h1>
+                    <p className="subtitle">Willkommen zurück, Abenteurer!</p>
                 </div>
-                
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div className="input-group">
+
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+                    <div>
                         <input
+                            className="input"
                             type="text"
                             value={username}
                             onChange={e => setUsername(e.target.value)}
@@ -57,9 +59,10 @@ export default function LoginPage() {
                             disabled={isLoading}
                         />
                     </div>
-                    
-                    <div className="input-group">
+
+                    <div>
                         <input
+                            className="input"
                             type="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
@@ -68,17 +71,18 @@ export default function LoginPage() {
                             disabled={isLoading}
                         />
                     </div>
-                    
+
                     <button
                         type="submit"
-                        className="login-button"
+                        className="btn btn-primary"
+                        style={{ width: '100%', justifyContent: 'center' }}
                         disabled={isLoading || !username || !password}
                     >
                         {isLoading ? "Wird eingeloggt..." : "Einloggen"}
                     </button>
-                    
+
                     {error && (
-                        <div className="error-message">
+                        <div className="error">
                             {error}
                         </div>
                     )}
