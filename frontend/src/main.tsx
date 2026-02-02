@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
 
   <AuthProvider>
-    <BrowserRouter basename="/captain-mercer">
+    <BrowserRouter basename="/captain-mercer/">
       <App />
     </BrowserRouter>
   </AuthProvider>
