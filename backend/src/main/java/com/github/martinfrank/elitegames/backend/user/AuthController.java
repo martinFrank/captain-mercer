@@ -1,6 +1,9 @@
 package com.github.martinfrank.elitegames.backend.user;
 
+import com.github.martinfrank.elitegames.backend.metrics.MetricsController;
 import com.github.martinfrank.elitegames.backend.security.JwtService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +28,7 @@ public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authManager;
     private final JwtService jwtService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
     public AuthController(UserService userService, AuthenticationManager authManager, JwtService jwtService) {
         this.userService = userService;
@@ -34,6 +38,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public AuthResponse register(@RequestBody RegisterRequest request) {
+        LOGGER.info("POST /register");
         var user = userService.register(
                 request.username(),
                 request.password(),
@@ -49,6 +54,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
+        LOGGER.info("POST /login");
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(), request.password())
         );

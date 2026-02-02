@@ -1,6 +1,8 @@
 package com.github.martinfrank.elitegames.backend.user;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,9 +15,11 @@ public class AdminController {
     //curl http://localhost:8080/api/admin/stats -H "Authorization: Bearer <TOKEN>"
 
     //geschützt durch SecurityConfig.securityFilterChain -> .requestMatchers("/api/admin/**").hasRole("ADMIN")
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
     @GetMapping("/stats")
     public String getStats() {
+        LOGGER.info("GET /stats");
         return "Nur Admins dürfen das sehen!";
     }
 

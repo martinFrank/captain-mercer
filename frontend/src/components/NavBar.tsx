@@ -23,7 +23,7 @@ export default function NavBar() {
       <div className="navbar-content">
         <div className="navbar-brand">
           <div className="navbar-icon">🗡️</div>
-          Adventure Game
+          Captain Mercer
         </div>
         
         <ul className="navbar-nav">

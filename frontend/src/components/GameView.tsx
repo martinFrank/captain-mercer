@@ -105,7 +105,7 @@ export default function GameView() {
                 <div style={{ marginBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '4px' }}>
                     <strong>CAPTAIN: </strong> {captain.name}
                 </div>
-                <div>POS: [{captain.ship.position.x}, {captain.ship.position.y}]</div>
+                <div>POS: [{captain.ship.position?.x ?? 0}, {captain.ship.position?.y ?? 0}]</div>
                 <div>CREW: {captain.ship.crewSize} | MASS: {captain.ship.weight}kg</div>
             </div>
 
@@ -129,7 +129,7 @@ export default function GameView() {
                 }}>
                     <div style={{ fontSize: '0.8rem', opacity: 0.7, marginBottom: '5px' }}>SYSTEMS</div>
                     <div style={{ display: 'flex', gap: '10px' }}>
-                        {captain.ship.equipment.map(eq => (
+                        {captain.ship.equipment?.map(eq => (
                             <span key={eq.id} style={{
                                 padding: '2px 6px',
                                 background: eq.status === 'active' ? 'rgba(0, 255, 100, 0.1)' : 'rgba(255, 0, 0, 0.1)',

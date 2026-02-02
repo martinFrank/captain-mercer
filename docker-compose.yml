@@ -2,11 +2,11 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: backenddb
+      POSTGRES_DB: mercerdb
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: securepassword
-    #ports:
-    #  - "5432:5432"
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -15,19 +15,19 @@ services:
   backend:
     build: ./backend
     depends_on:
-      - db 
+      - db
     ports:
       - "8482:8080"
     networks:
       - bfwa_network
-      - container_app_network 
+      - container_app_network
     labels:
-      - "traefik.enable=true" 
+      - "traefik.enable=true"
       - "traefik.http.routers.bfwa-backend.entrypoints=websecure"
       - "traefik.http.routers.bfwa-backend.rule=PathPrefix(`/fbwa-backend-api`)"
-      - "traefik.http.routers.bfwa-backend.tls.certresolver=letsencrypt" 
+      - "traefik.http.routers.bfwa-backend.tls.certresolver=letsencrypt"
       - "traefik.http.services.bfwa-backend.loadbalancer.server.port=8080"
-      - "traefik.docker.network=container_app_network" 
+      - "traefik.docker.network=container_app_network"
 
   frontend:
     build: ./frontend
@@ -37,14 +37,14 @@ services:
       - "8480:80"
     networks:
       - bfwa_network
-      - container_app_network 
+      - container_app_network
     labels:
-      - "traefik.enable=true" 
+      - "traefik.enable=true"
       - "traefik.http.routers.bfwa-frontend.entrypoints=websecure"
       - "traefik.http.routers.bfwa-frontend.rule=PathPrefix(`/fbwa-frontend`)"
-      - "traefik.http.routers.bfwa-frontend.tls.certresolver=letsencrypt" 
+      - "traefik.http.routers.bfwa-frontend.tls.certresolver=letsencrypt"
       - "traefik.http.services.bfwa-frontend.loadbalancer.server.port=80"
-      - "traefik.docker.network=container_app_network" 
+      - "traefik.docker.network=container_app_network"
 
 networks:
   bfwa_network:

@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/metrics/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") //Beachte: hasRole("ADMIN") prüft automatisch auf ROLE_ADMIN.
                         .anyRequest().authenticated()
                 )
@@ -77,8 +78,11 @@ public class SecurityConfig {
         String withDev = """
         https://elitegames.v6.rocks,
         https://192.168.0.250,
-        http://localhost:5173
+        http://localhost:8480,
+        http://localhost:5173,
+        http://frontend
         """;
         return Arrays.stream(withDev.split(",")).map(String::trim).toList();
     }
+
 }

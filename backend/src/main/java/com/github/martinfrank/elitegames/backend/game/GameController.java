@@ -1,6 +1,9 @@
 package com.github.martinfrank.elitegames.backend.game;
 
+import com.github.martinfrank.elitegames.backend.user.AuthController;
 import com.github.martinfrank.elitegames.backend.user.UserEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class GameController {
 
     private final GameService gameService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
     public GameController(GameService gameService) {
         this.gameService = gameService;
@@ -17,6 +21,7 @@ public class GameController {
 
     @GetMapping
     public ResponseEntity<GameEntity> getGame(@AuthenticationPrincipal UserEntity user) {
+        LOGGER.info("GET /game");
         if (user == null) {
             return ResponseEntity.status(401).build();
         }
@@ -26,6 +31,7 @@ public class GameController {
 
     @PostMapping
     public ResponseEntity<GameEntity> saveGame(@AuthenticationPrincipal UserEntity user, @RequestBody GameDTO gameDto) {
+        LOGGER.info("POST /game");
         if (user == null) {
             return ResponseEntity.status(401).build();
         }

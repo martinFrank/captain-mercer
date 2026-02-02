@@ -43,8 +43,8 @@ export default function LoginPage() {
                     <div className="adventure-icon" style={{ margin: "0 auto var(--spacing-md)" }}>
                         🗡️
                     </div>
-                    <h1 className="title">Adventure Game</h1>
-                    <p className="subtitle">Willkommen zurück, Abenteurer!</p>
+                    <h1 className="title">Captain Mercer</h1>
+                    <p className="subtitle">Willkommen zurück, Captain!</p>
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
