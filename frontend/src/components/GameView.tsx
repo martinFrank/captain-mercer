@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Captain } from '../types/game';
 import { fetchGameState, saveGameState } from '../api/gameApi';
+import './GameView.css';
 
 export default function GameView() {
     const [captain, setCaptain] = useState<Captain | null>(null);
@@ -41,68 +42,21 @@ export default function GameView() {
     if (!captain) return <div style={{ color: '#f00', padding: '20px' }}>Error initializing game. Please try again.</div>;
 
     return (
-        <div className="game-view-container" style={{
-            position: 'relative',
-            width: '100%',
-            height: '600px', /* Fixed height for the game canvas */
-            backgroundColor: '#000',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
-            border: '2px solid var(--border-color)',
-            boxShadow: 'var(--shadow-lg)'
-        }}>
+        <div className="game-view-container">
             {/* Space Background Layer */}
-            <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                background: 'radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)',
-                zIndex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
+            <div className="space-background">
                 {/* Ship Representation (Center) */}
-                <div style={{
-                    position: 'relative',
-                    textAlign: 'center',
-                    zIndex: 2
-                }}>
-                    <div style={{
-                        fontSize: '4rem',
-                        marginBottom: '1rem',
-                        filter: 'drop-shadow(0 0 10px rgba(0, 200, 255, 0.5))'
-                    }}>🚀</div>
-                    <div style={{
-                        color: '#fff',
-                        background: 'rgba(0,0,0,0.7)',
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '0.9rem'
-                    }}>
+                <div className="ship-container">
+                    <div className="ship-icon">🚀</div>
+                    <div className="ship-label">
                         {captain.ship.name}
                     </div>
                 </div>
             </div>
 
             {/* HUD Overlay - Top Left */}
-            <div style={{
-                position: 'absolute',
-                top: '20px',
-                left: '20px',
-                zIndex: 10,
-                padding: 'var(--spacing-sm) var(--spacing-md)',
-                background: 'rgba(0, 0, 0, 0.6)',
-                border: '1px solid var(--primary-color)',
-                borderRadius: 'var(--radius-sm)',
-                color: 'var(--primary-color)',
-                fontFamily: 'monospace',
-                fontSize: 'var(--font-size-sm)',
-                backdropFilter: 'blur(4px)'
-            }}>
-                <div style={{ marginBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '4px' }}>
+            <div className="hud-overlay-top-left">
+                <div className="hud-row">
                     <strong>CAPTAIN: </strong> {captain.name}
                 </div>
                 <div>POS: [{captain.ship.position?.x ?? 0}, {captain.ship.position?.y ?? 0}]</div>
@@ -110,52 +64,33 @@ export default function GameView() {
             </div>
 
             {/* HUD Overlay - Bottom Panel (Equipment) */}
-            <div style={{
-                position: 'absolute',
-                bottom: '20px',
-                left: '20px',
-                right: '20px',
-                zIndex: 10,
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-end'
-            }}>
-                <div style={{
-                    background: 'rgba(0, 20, 40, 0.8)',
-                    padding: '10px',
-                    borderRadius: '8px',
-                    border: '1px solid #334',
-                    color: '#aec'
-                }}>
-                    <div style={{ fontSize: '0.8rem', opacity: 0.7, marginBottom: '5px' }}>SYSTEMS</div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="hud-overlay-bottom">
+                <div className="systems-panel">
+                    <div className="systems-title">SYSTEMS</div>
+                    <div className="systems-list">
                         {captain.ship.equipment?.map(eq => (
-                            <span key={eq.id} style={{
-                                padding: '2px 6px',
-                                background: eq.status === 'active' ? 'rgba(0, 255, 100, 0.1)' : 'rgba(255, 0, 0, 0.1)',
-                                border: `1px solid ${eq.status === 'active' ? '#0f0' : '#f00'}`,
-                                borderRadius: '4px',
-                                fontSize: '0.8rem'
-                            }}>
+                            <span
+                                key={eq.id}
+                                className={`system-status ${eq.status === 'active' ? 'active' : 'inactive'}`}
+                            >
                                 {eq.name}
                             </span>
                         ))}
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <button className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '6px 16px' }}>
+                <div className="controls-panel">
+                    <button className="btn btn-primary control-btn">
                         SCAN SECTOR
                     </button>
                     <button
-                        className="btn btn-primary"
-                        style={{ fontSize: '0.8rem', padding: '6px 16px', background: saving ? '#444' : '' }}
+                        className={`btn btn-primary control-btn ${saving ? 'state-saving' : ''}`}
                         onClick={handleSave}
                         disabled={saving}
                     >
                         {saving ? 'SAVING...' : 'SAVE STATE'}
                     </button>
-                    <button className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '6px 16px' }}>
+                    <button className="btn btn-primary control-btn">
                         ENGAGE ENGINES
                     </button>
                 </div>

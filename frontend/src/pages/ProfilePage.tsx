@@ -1,4 +1,5 @@
 import { useCurrentUser } from "../hooks/useCurrentUser";
+import "./ProfilePage.css";
 
 export default function ProfilePage() {
   const user = useCurrentUser();
@@ -19,8 +20,8 @@ export default function ProfilePage() {
   return (
     <div className="page-container">
       <div className="page-content">
-        <div className="text-center" style={{ marginBottom: "var(--spacing-2xl)" }}>
-          <div className="adventure-icon" style={{ margin: "0 auto var(--spacing-lg)" }}>
+        <div className="profile-header">
+          <div className="adventure-icon profile-icon">
             👤
           </div>
           <h1 className="title">Mein Profil</h1>
@@ -29,78 +30,34 @@ export default function ProfilePage() {
 
         <div className="grid grid-cols-2 gap-lg">
           <div className="card">
-            <h2 style={{
-              color: "var(--primary-color)",
-              fontSize: "var(--font-size-xl)",
-              marginBottom: "var(--spacing-lg)"
-            }}>
+            <h2 className="card-header">
               👤 Persönliche Informationen
             </h2>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)" }}>
-              <div style={{
-                padding: "var(--spacing-md)",
-                background: "rgba(255, 255, 255, 0.05)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--border-color)"
-              }}>
-                <label style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "var(--font-size-sm)",
-                  display: "block",
-                  marginBottom: "var(--spacing-xs)"
-                }}>
+
+            <div className="info-list">
+              <div className="info-item">
+                <label className="info-label">
                   Benutzername
                 </label>
-                <span style={{
-                  color: "var(--text-primary)",
-                  fontSize: "var(--font-size-lg)",
-                  fontWeight: "600"
-                }}>
+                <span className="info-value info-value-bold">
                   {user.username}
                 </span>
               </div>
 
-              <div style={{
-                padding: "var(--spacing-md)",
-                background: "rgba(255, 255, 255, 0.05)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--border-color)"
-              }}>
-                <label style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "var(--font-size-sm)",
-                  display: "block",
-                  marginBottom: "var(--spacing-xs)"
-                }}>
+              <div className="info-item">
+                <label className="info-label">
                   Name
                 </label>
-                <span style={{
-                  color: "var(--text-primary)",
-                  fontSize: "var(--font-size-lg)"
-                }}>
+                <span className="info-value">
                   {user.firstName} {user.lastName}
                 </span>
               </div>
 
-              <div style={{
-                padding: "var(--spacing-md)",
-                background: "rgba(255, 255, 255, 0.05)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--border-color)"
-              }}>
-                <label style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "var(--font-size-sm)",
-                  display: "block",
-                  marginBottom: "var(--spacing-xs)"
-                }}>
+              <div className="info-item">
+                <label className="info-label">
                   E-Mail
                 </label>
-                <span style={{
-                  color: "var(--text-primary)",
-                  fontSize: "var(--font-size-lg)"
-                }}>
+                <span className="info-value">
                   {user.email}
                 </span>
               </div>
@@ -108,30 +65,16 @@ export default function ProfilePage() {
           </div>
 
           <div className="card">
-            <h2 style={{
-              color: "var(--primary-color)",
-              fontSize: "var(--font-size-xl)",
-              marginBottom: "var(--spacing-lg)"
-            }}>
+            <h2 className="card-header">
               🛡️ Konto & Berechtigungen
             </h2>
-            
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-md)" }}>
-              <div style={{
-                padding: "var(--spacing-md)",
-                background: "rgba(255, 255, 255, 0.05)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--border-color)"
-              }}>
-                <label style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "var(--font-size-sm)",
-                  display: "block",
-                  marginBottom: "var(--spacing-xs)"
-                }}>
+
+            <div className="info-list">
+              <div className="info-item">
+                <label className="info-label">
                   Rollen
                 </label>
-                <div style={{ display: "flex", gap: "var(--spacing-sm)", flexWrap: "wrap" }}>
+                <div className="roles-container">
                   {user.roles?.map((role, index) => (
                     <span
                       key={index}
@@ -140,35 +83,19 @@ export default function ProfilePage() {
                       {role}
                     </span>
                   )) || (
-                    <span style={{ color: "var(--text-muted)" }}>Keine Rollen zugewiesen</span>
-                  )}
+                      <span className="roles-empty">Keine Rollen zugewiesen</span>
+                    )}
                 </div>
               </div>
 
-              <div style={{
-                padding: "var(--spacing-lg)",
-                background: "rgba(100, 108, 255, 0.1)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid rgba(100, 108, 255, 0.2)",
-                textAlign: "center" as const
-              }}>
-                <div style={{
-                  color: "var(--primary-color)",
-                  fontSize: "var(--font-size-2xl)",
-                  marginBottom: "var(--spacing-sm)"
-                }}>
+              <div className="status-badge">
+                <div className="status-icon">
                   ✨
                 </div>
-                <h3 style={{
-                  color: "var(--primary-color)",
-                  marginBottom: "var(--spacing-sm)"
-                }}>
+                <h3 className="status-title">
                   Abenteurer Status
                 </h3>
-                <p style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "var(--font-size-sm)"
-                }}>
+                <p className="status-text">
                   Aktiver Spieler
                 </p>
               </div>
@@ -176,20 +103,11 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="card" style={{ marginTop: "var(--spacing-xl)" }}>
-          <h2 style={{
-            color: "var(--primary-color)",
-            fontSize: "var(--font-size-xl)",
-            marginBottom: "var(--spacing-lg)"
-          }}>
+        <div className="card quick-actions-card">
+          <h2 className="card-header">
             🎮 Schnellaktionen
           </h2>
-          <div style={{
-            display: "flex",
-            gap: "var(--spacing-md)",
-            justifyContent: "center",
-            flexWrap: "wrap" as const
-          }}>
+          <div className="quick-actions-container">
             <button className="btn btn-primary">
               🎯 Adventure starten
             </button>
