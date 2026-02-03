@@ -20,8 +20,25 @@ export interface Ship {
     position: Position;
 }
 
+
 export interface Captain {
     id: string;
     name: string;
     ship: Ship;
+}
+
+export interface Star {
+    id: string;
+    name: string;
+    position: Position; // Relative to sector center or top-left
+    type: 'yellow' | 'blue' | 'red' | 'white'; // simplistic types for now
+    size: 'small' | 'medium' | 'large';
+}
+
+export interface Sector {
+    id: string;
+    name: string;
+    width: number;
+    height: number;
+    stars: Star[];
 }
