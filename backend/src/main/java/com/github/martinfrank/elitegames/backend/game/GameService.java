@@ -12,15 +12,25 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final SectorRepository sectorRepository;
 
-    public GameService(GameRepository gameRepository) {
+    public GameService(GameRepository gameRepository, SectorRepository sectorRepository) {
         this.gameRepository = gameRepository;
+        this.sectorRepository = sectorRepository;
     }
 
     @Transactional
     public GameEntity getOrCreateGame(UserEntity user) {
         GameEntity existingGame = gameRepository.findByUser_Id(user.getId());
         if (existingGame != null) {
+            // Ensure existing ships have a sector assigned
+            if (existingGame.getShip() != null && existingGame.getShip().getSector() == null) {
+                List<SectorEntity> sectors = sectorRepository.findAll();
+                if (!sectors.isEmpty()) {
+                    existingGame.getShip().setSector(sectors.get(0));
+                    gameRepository.save(existingGame);
+                }
+            }
             return existingGame;
         }
 
@@ -32,8 +42,14 @@ public class GameService {
         ship.setName("Stellar Wind"); // Default name
         ship.setWeight(45000); // Default weight
         ship.setCrewSize(4); // Default crew
-        ship.setX(0.0);
-        ship.setY(0.0);
+        ship.setX(500.0); // Start in middle
+        ship.setY(500.0);
+
+        // Assign default sector
+        List<SectorEntity> sectors = sectorRepository.findAll();
+        if (!sectors.isEmpty()) {
+            ship.setSector(sectors.get(0));
+        }
 
         List<EquipmentEntity> initialEquipment = new ArrayList<>();
         EquipmentEntity eq1 = new EquipmentEntity();

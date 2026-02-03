@@ -20,26 +20,10 @@ export const fetchGameState = async (): Promise<Captain> => {
     };
 };
 
-export const fetchCurrentSector = async (): Promise<Sector> => {
-    // Mock implementation
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                id: 'sector-1',
-                name: 'Alpha Centauri',
-                width: 1000,
-                height: 1000,
-                stars: [
-                    { id: 's1', name: 'Alpha A', position: { x: 300, y: 300 }, type: 'yellow', size: 'large' },
-                    { id: 's2', name: 'Alpha B', position: { x: 700, y: 600 }, type: 'blue', size: 'medium' },
-                    { id: 's3', name: 'Proxima', position: { x: 500, y: 500 }, type: 'red', size: 'small' },
-                    { id: 's4', name: 'Rigel', position: { x: 150, y: 150 }, type: 'white', size: 'large' },
-                    { id: 's5', name: 'Betelgeuse', position: { x: 850, y: 200 }, type: 'red', size: 'large' },
-                    { id: 's6', name: 'Sirius', position: { x: 200, y: 800 }, type: 'white', size: 'medium' },
-                ]
-            });
-        }, 300);
-    });
+export const fetchCurrentSector = async (): Promise<Sector | null> => {
+    // Sector is now fetched as part of the game state (captain.ship.sector)
+    // This function can be deprecated or used to force refresh if needed
+    return null;
 };
 
 export const saveGameState = async (captain: Captain): Promise<Captain> => {

@@ -21,8 +21,8 @@ export const SectorView: React.FC<SectorViewProps> = ({ sector, ship }) => {
                         key={star.id}
                         className={`star-marker star-${star.type} star-${star.size}`}
                         style={{
-                            left: `${(star.position.x / sector.width) * 100}%`,
-                            top: `${(star.position.y / sector.height) * 100}%`
+                            left: `${(star.x / sector.width) * 100}%`,
+                            top: `${(star.y / sector.height) * 100}%`
                         }}
                         title={star.name}
                     >

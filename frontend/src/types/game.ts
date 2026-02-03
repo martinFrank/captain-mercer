@@ -18,6 +18,7 @@ export interface Ship {
     crewSize: number;
     equipment: TechnicalEquipment[];
     position: Position;
+    sector: Sector;
 }
 
 
@@ -30,7 +31,8 @@ export interface Captain {
 export interface Star {
     id: string;
     name: string;
-    position: Position; // Relative to sector center or top-left
+    x: number;
+    y: number;
     type: 'yellow' | 'blue' | 'red' | 'white'; // simplistic types for now
     size: 'small' | 'medium' | 'large';
 }

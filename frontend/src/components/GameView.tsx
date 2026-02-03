@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Captain, Sector } from '../types/game';
-import { fetchGameState, saveGameState, fetchCurrentSector } from '../api/gameApi';
+import { fetchGameState, saveGameState } from '../api/gameApi';
 import { SectorView } from './SectorView';
 import './GameView.css';
 
@@ -17,12 +17,11 @@ export default function GameView() {
 
     const loadGame = async () => {
         try {
-            const [captainData, sectorData] = await Promise.all([
-                fetchGameState(),
-                fetchCurrentSector()
-            ]);
+            const captainData = await fetchGameState();
             setCaptain(captainData);
-            setSector(sectorData);
+            if (captainData.ship.sector) {
+                setSector(captainData.ship.sector);
+            }
         } catch (error) {
             console.error("Failed to load game:", error);
         } finally {

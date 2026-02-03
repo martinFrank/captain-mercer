@@ -22,6 +22,10 @@ public class ShipEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EquipmentEntity> equipment;
 
+    @ManyToOne
+    @JoinColumn(name = "sector_id")
+    private SectorEntity sector;
+
     public String getId() {
         return id;
     }
@@ -76,5 +80,13 @@ public class ShipEntity {
 
     public void setEquipment(List<EquipmentEntity> equipment) {
         this.equipment = equipment;
+    }
+
+    public SectorEntity getSector() {
+        return sector;
+    }
+
+    public void setSector(SectorEntity sector) {
+        this.sector = sector;
     }
 }
