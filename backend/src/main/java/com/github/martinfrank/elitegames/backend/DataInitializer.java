@@ -23,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userService.findByUsername("admin").isPresent()) {
+        if (userService.findByUsername("admin").isEmpty()) {
             // FIXME hardcoded name
             userService.register("admin", "admin123", List.of("ROLE_ADMIN"), "no.mail@reply.please", "firstname",
                     "lastname");

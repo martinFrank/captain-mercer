@@ -1,4 +1,4 @@
-import GameView from "../components/GameView";
+import GameView from "../components/game/GameView";
 
 export default function HomePage() {
   return (

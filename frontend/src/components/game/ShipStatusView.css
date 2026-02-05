@@ -1,0 +1,38 @@
+.ship-status-view {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.space-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ship-container {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.ship-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
+}
+
+.ship-label {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}

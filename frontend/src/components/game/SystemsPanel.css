@@ -1,0 +1,60 @@
+.systems-panel-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.systems-panel {
+    background: rgba(0, 20, 40, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #334;
+    color: #aec;
+}
+
+.systems-title {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.systems-list {
+    display: flex;
+    gap: 10px;
+}
+
+.system-status {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid transparent;
+}
+
+.system-status.active {
+    background: rgba(0, 255, 100, 0.1);
+    border-color: #0f0;
+}
+
+.system-status.inactive {
+    background: rgba(255, 0, 0, 0.1);
+    border-color: #f00;
+}
+
+.controls-panel {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    font-size: 0.8rem;
+    padding: 6px 16px;
+}
+
+.state-saving {
+    background: #444;
+}

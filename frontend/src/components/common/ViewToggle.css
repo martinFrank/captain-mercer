@@ -1,0 +1,30 @@
+.view-toggle-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: #0d1117;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 20;
+}
+
+.view-toggle-btn {
+    font-size: 0.8rem;
+    padding: 6px 16px;
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.view-toggle-btn:hover {
+    opacity: 0.8;
+}
+
+.view-toggle-btn.active {
+    background: var(--primary-color);
+    color: #000;
+    opacity: 1;
+    font-weight: bold;
+}

@@ -1,0 +1,18 @@
+.error-message-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    color: var(--error-color, #f44);
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid var(--error-color, #f44);
+    border-radius: var(--radius-md);
+}
+
+.error-icon {
+    font-size: var(--font-size-lg);
+}
+
+.error-text {
+    font-size: var(--font-size-md);
+}
