@@ -1,23 +1,9 @@
 import { api } from '../api';
-import type { Captain, Ship, Sector } from '../types/game';
-
-interface GameResponse {
-    id: string;
-    user: {
-        id: number;
-        username: string;
-    };
-    ship: Ship;
-}
+import type { Captain, Sector } from '../types/game';
 
 export const fetchGameState = async (): Promise<Captain> => {
-    const response = await api.get<GameResponse>('/api/game');
-    const game = response.data;
-    return {
-        id: String(game.user.id),
-        name: game.user.username,
-        ship: game.ship
-    };
+    const response = await api.get<Captain>('/api/game');
+    return response.data;
 };
 
 export const fetchCurrentSector = async (): Promise<Sector | null> => {
@@ -32,11 +18,6 @@ export const saveGameState = async (captain: Captain): Promise<Captain> => {
         ship: captain.ship
     };
 
-    const response = await api.post<GameResponse>('/api/game', payload);
-    const game = response.data;
-    return {
-        id: String(game.user.id),
-        name: game.user.username,
-        ship: game.ship
-    };
+    const response = await api.post<Captain>('/api/game', payload);
+    return response.data;
 };

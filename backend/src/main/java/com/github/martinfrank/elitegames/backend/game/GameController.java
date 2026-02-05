@@ -1,5 +1,7 @@
 package com.github.martinfrank.elitegames.backend.game;
 
+import com.github.martinfrank.elitegames.backend.dto.CaptainResponse;
+import com.github.martinfrank.elitegames.backend.mapper.GameMapper;
 import com.github.martinfrank.elitegames.backend.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,28 +16,30 @@ public class GameController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class);
 
     private final GameService gameService;
+    private final GameMapper gameMapper;
 
-    public GameController(GameService gameService) {
+    public GameController(GameService gameService, GameMapper gameMapper) {
         this.gameService = gameService;
+        this.gameMapper = gameMapper;
     }
 
     @GetMapping
-    public ResponseEntity<GameEntity> getGame(@AuthenticationPrincipal UserEntity user) {
+    public ResponseEntity<CaptainResponse> getGame(@AuthenticationPrincipal UserEntity user) {
         LOGGER.info("GET /game");
         if (user == null) {
             return ResponseEntity.status(401).build();
         }
         GameEntity game = gameService.getOrCreateGame(user);
-        return ResponseEntity.ok(game);
+        return ResponseEntity.ok(gameMapper.toResponse(game));
     }
 
     @PostMapping
-    public ResponseEntity<GameEntity> saveGame(@AuthenticationPrincipal UserEntity user, @RequestBody GameDTO gameDto) {
+    public ResponseEntity<CaptainResponse> saveGame(@AuthenticationPrincipal UserEntity user, @RequestBody GameDTO gameDto) {
         LOGGER.info("POST /game");
         if (user == null) {
             return ResponseEntity.status(401).build();
         }
         GameEntity updatedGame = gameService.updateGame(user, gameDto);
-        return ResponseEntity.ok(updatedGame);
+        return ResponseEntity.ok(gameMapper.toResponse(updatedGame));
     }
 }
