@@ -1,6 +1,5 @@
 package com.github.martinfrank.elitegames.backend.game;
 
-import com.github.martinfrank.elitegames.backend.user.AuthController;
 import com.github.martinfrank.elitegames.backend.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/game")
 public class GameController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class);
+
     private final GameService gameService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
     public GameController(GameService gameService) {
         this.gameService = gameService;

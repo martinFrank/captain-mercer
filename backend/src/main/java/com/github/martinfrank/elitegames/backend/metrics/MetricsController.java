@@ -1,12 +1,8 @@
 package com.github.martinfrank.elitegames.backend.metrics;
 
-import com.github.martinfrank.elitegames.backend.game.GameEntity;
-import com.github.martinfrank.elitegames.backend.user.UserController;
-import com.github.martinfrank.elitegames.backend.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,5 +1,6 @@
 package com.github.martinfrank.elitegames.backend.game;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,9 @@ public class EquipmentEntity {
     private String id;
 
     private String name;
-    private String status; // active, damaged, offline
+
+    @Enumerated(EnumType.STRING)
+    private EquipmentStatus status;
 
     public String getId() {
         return id;
@@ -28,11 +31,20 @@ public class EquipmentEntity {
         this.name = name;
     }
 
-    public String getStatus() {
+    @JsonProperty("status")
+    public String getStatusAsString() {
+        return status != null ? status.toApiString() : "offline";
+    }
+
+    public EquipmentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(EquipmentStatus status) {
         this.status = status;
+    }
+
+    public void setStatus(String status) {
+        this.status = EquipmentStatus.fromString(status);
     }
 }
