@@ -17,7 +17,8 @@ export interface Ship {
     weight: number; // in metric tons
     crewSize: number;
     equipment: TechnicalEquipment[];
-    position: Position;
+    x: number;
+    y: number;
     sector: Sector;
 }
 

@@ -40,7 +40,7 @@ export default function LoginPage() {
 
             <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
                 <div className="text-center" style={{ marginBottom: "var(--spacing-xl)" }}>
-                    <div className="adventure-icon" style={{ margin: "0 auto var(--spacing-md)" }}>
+                    <div className="adventure-icon" style={{ margin: "0 auto var(--spacing-md)" }}>                    
                         🗡️
                     </div>
                     <h1 className="title">Captain Mercer</h1>

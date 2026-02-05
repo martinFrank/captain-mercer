@@ -27,7 +27,7 @@ public class GameService {
             if (existingGame.getShip() != null && existingGame.getShip().getSector() == null) {
                 List<SectorEntity> sectors = sectorRepository.findAll();
                 if (!sectors.isEmpty()) {
-                    existingGame.getShip().setSector(sectors.get(0));
+                    existingGame.getShip().setSector(sectors.getFirst());
                     gameRepository.save(existingGame);
                 }
             }
@@ -48,7 +48,7 @@ public class GameService {
         // Assign default sector
         List<SectorEntity> sectors = sectorRepository.findAll();
         if (!sectors.isEmpty()) {
-            ship.setSector(sectors.get(0));
+            ship.setSector(sectors.getFirst());
         }
 
         List<EquipmentEntity> initialEquipment = new ArrayList<>();

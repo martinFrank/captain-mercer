@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Captain, Sector } from '../types/game';
 import { fetchGameState, saveGameState } from '../api/gameApi';
 import { SectorView } from './SectorView';
-import './GameView.css';
+import './GameView.css'; 
 
 export default function GameView() {
     const [captain, setCaptain] = useState<Captain | null>(null);
@@ -34,6 +34,7 @@ export default function GameView() {
         setSaving(true);
         try {
             const updated = await saveGameState(captain);
+            console.info("Game saved successfully!", updated);
             setCaptain(updated);
             alert("Game saved successfully!");
         } catch (error) {
@@ -85,7 +86,7 @@ export default function GameView() {
                             <div className="hud-row">
                                 <strong>CAPTAIN: </strong> {captain.name}
                             </div>
-                            <div>POS: [{captain.ship.position?.x ?? 0}, {captain.ship.position?.y ?? 0}]</div>
+                            <div>POS: [{captain.ship.x ?? 0}, {captain.ship.y ?? 0}]</div>
                             <div>CREW: {captain.ship.crewSize} | MASS: {captain.ship.weight}kg</div>
                         </div>
 

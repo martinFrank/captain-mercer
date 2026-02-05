@@ -35,8 +35,8 @@ export const SectorView: React.FC<SectorViewProps> = ({ sector, ship }) => {
                 <div
                     className="ship-marker"
                     style={{
-                        left: `${((ship.position?.x ?? 0) / sector.width) * 100}%`,
-                        top: `${((ship.position?.y ?? 0) / sector.height) * 100}%`
+                        left: `${((ship.x ?? 0) / sector.width) * 100}%`,
+                        top: `${((ship.y ?? 0) / sector.height) * 100}%`
                     }}
                 >
                     <div className="ship-dot"></div>
@@ -44,7 +44,7 @@ export const SectorView: React.FC<SectorViewProps> = ({ sector, ship }) => {
                 </div>
             </div>
             <div className="sector-coordinates">
-                COORD: {ship.position?.x ?? 0}, {ship.position?.y ?? 0}
+                COORD: {ship.x ?? 0}, {ship.y ?? 0}
             </div>
         </div>
     );
