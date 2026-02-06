@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
@@ -165,7 +168,42 @@ public class SectorService {
             connections.add(connection);
         }
 
-        return connections;
+        // Remove longest connection from each star to create a more realistic map
+        return pruneConnections(connections);
+    }
+
+    /**
+     * Removes the longest connection from each star (if it has more than one connection).
+     * This creates a sparser, more realistic looking star map.
+     */
+    private List<StarConnectionEntity> pruneConnections(List<StarConnectionEntity> connections) {
+        // Build adjacency map: star -> list of connections
+        Map<StarEntity, List<StarConnectionEntity>> adjacency = new HashMap<>();
+        for (StarConnectionEntity conn : connections) {
+            adjacency.computeIfAbsent(conn.getStarFrom(), k -> new ArrayList<>()).add(conn);
+            adjacency.computeIfAbsent(conn.getStarTo(), k -> new ArrayList<>()).add(conn);
+        }
+
+        // Find connections to remove (longest for each star with >1 connections)
+        Set<StarConnectionEntity> toRemove = new HashSet<>();
+        for (Map.Entry<StarEntity, List<StarConnectionEntity>> entry : adjacency.entrySet()) {
+            List<StarConnectionEntity> starConnections = entry.getValue();
+            if (starConnections.size() > 1) {
+                // Find the longest connection for this star
+                StarConnectionEntity longest = starConnections.stream()
+                    .max(Comparator.comparingDouble(StarConnectionEntity::getDistance))
+                    .orElse(null);
+                if (longest != null) {
+                    toRemove.add(longest);
+                }
+            }
+        }
+
+        // Remove marked connections
+        List<StarConnectionEntity> pruned = new ArrayList<>(connections);
+        pruned.removeAll(toRemove);
+
+        return pruned;
     }
 
     /**
