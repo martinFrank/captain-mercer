@@ -3,6 +3,8 @@ package com.github.martinfrank.elitegames.backend.game.entity;
 import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class GameEntity {
 
@@ -17,6 +19,9 @@ public class GameEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ship_id", referencedColumnName = "id")
     private ShipEntity ship;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<QuestEntity> quests;
 
     public String getId() {
         return id;
@@ -40,5 +45,13 @@ public class GameEntity {
 
     public void setShip(ShipEntity ship) {
         this.ship = ship;
+    }
+
+    public List<QuestEntity> getQuests() {
+        return quests;
+    }
+
+    public void setQuests(List<QuestEntity> quests) {
+        this.quests = quests;
     }
 }

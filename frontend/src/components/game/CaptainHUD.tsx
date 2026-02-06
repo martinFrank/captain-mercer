@@ -11,7 +11,7 @@ export function CaptainHUD({ captain }: CaptainHUDProps) {
             <div className="hud-row">
                 <strong>CAPTAIN: </strong> {captain.name}
             </div>
-            <div>POS: [{captain.ship.x ?? 0}, {captain.ship.y ?? 0}]</div>
+            <div>STAR: {captain.ship.currentStarName ?? 'Unknown'}</div>
             <div>CREW: {captain.ship.crewSize} | MASS: {captain.ship.weight}kg</div>
         </div>
     );

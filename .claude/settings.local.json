@@ -11,7 +11,26 @@
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nprune longest connections from each star after triangulation\n\nAdd post-processing step that removes the longest connection from\neach star \\(if it has more than one\\). This creates a sparser, more\nrealistic looking star map by eliminating the long edges that\nDelaunay triangulation tends to create at the boundaries.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git push:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor SectorService to follow IOSP principle\n\nApply Integration Operation Segregation Principle:\n- Integration methods only orchestrate other methods\n- Operation methods only contain logic, no method calls\n- Extract helper records \\(GridDimensions, Bounds\\)\n- Extract constants for magic values\n- Clear separation with section comments\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor SectorService to follow IOSP principle\n\nApply Integration Operation Segregation Principle:\n- Integration methods only orchestrate other methods\n- Operation methods only contain logic, no method calls\n- Extract helper records \\(GridDimensions, Bounds\\)\n- Extract constants for magic values\n- Clear separation with section comments\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git checkout:*)",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend && build.cmd clean compile\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend && npm run lint\")",
+      "Bash(cmd.exe:*)",
+      "Bash(JAVA_HOME=\"C:/Users/m.frank/scoop/apps/temurin25-jdk/current\" PATH=\"$JAVA_HOME/bin:$PATH\" \"C:/Users/m.frank/IdeaProjects/privat/captain-mercer/backend/mvnw\":*)",
+      "Bash(npx:*)",
+      "Bash(powershell.exe -Command \"Set-Location ''C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend''; npm run lint 2>&1\")",
+      "Bash(powershell.exe -Command \"Set-Location ''C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend''; & npm.cmd run lint 2>&1\")",
+      "Bash(powershell.exe -Command \"Get-Command npm* -ErrorAction SilentlyContinue | Select-Object Name, Source\")",
+      "Bash(powershell.exe:*)",
+      "Bash(where.exe:*)",
+      "Bash(\"/c/Program Files/nodejs/npm\" run --prefix \"C:/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend\" lint)",
+      "Bash(PATH=\"/c/Program Files/nodejs:$PATH\" node \"/c/Program Files/nodejs/node_modules/npm/bin/npm-cli.js\" run:*)",
+      "Bash(ls:*)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" -e \"console.log\\(process.env.PATH\\)\")",
+      "Bash(tr:*)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" -e \"const {execSync} = require\\(''child_process''\\); console.log\\(execSync\\(''where npm'', {encoding:''utf8''}\\)\\)\")",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" -e \"console.log\\(require\\(''child_process''\\).execSync\\(''corepack enable && npm --version'', {encoding:''utf8'', shell:''cmd.exe''}\\)\\)\")",
+      "Bash(\"/c/Users/m.frank/AppData/Roaming/nvm/v18.12.0/npm.cmd\" run --prefix \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\" lint)"
     ]
   }
 }

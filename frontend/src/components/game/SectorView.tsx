@@ -10,6 +10,10 @@ interface SectorViewProps {
 }
 
 export function SectorView({ sector, ship }: SectorViewProps) {
+    const currentStar = sector.stars.find(s => s.id === ship.currentStarId);
+    const starX = currentStar?.x ?? 0;
+    const starY = currentStar?.y ?? 0;
+
     return (
         <div className="sector-view-container">
             <h3 className="sector-title">SECTOR: {sector.name.toUpperCase()}</h3>
@@ -30,14 +34,14 @@ export function SectorView({ sector, ship }: SectorViewProps) {
                 ))}
 
                 <ShipMarker
-                    x={ship.x ?? 0}
-                    y={ship.y ?? 0}
+                    x={starX}
+                    y={starY}
                     sectorWidth={sector.width}
                     sectorHeight={sector.height}
                 />
             </div>
             <div className="sector-coordinates">
-                COORD: {ship.x ?? 0}, {ship.y ?? 0}
+                STAR: {ship.currentStarName ?? 'Unknown'}
             </div>
         </div>
     );

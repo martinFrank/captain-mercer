@@ -6,11 +6,13 @@ import { ErrorMessage } from '../common/ErrorMessage';
 import { ViewToggle } from '../common/ViewToggle';
 import { ShipStatusView } from './ShipStatusView';
 import { SectorView } from './SectorView';
+import { QuestView } from './QuestView';
 import './GameView.css';
 
 const VIEW_OPTIONS = [
     { key: 'status', label: 'SHIP STATUS' },
-    { key: 'sector', label: 'SECTOR MAP' }
+    { key: 'sector', label: 'SECTOR MAP' },
+    { key: 'quest', label: 'QUEST' }
 ];
 
 export default function GameView() {
@@ -79,16 +81,20 @@ export default function GameView() {
             />
 
             <div className="game-content-area">
-                {viewMode === 'status' ? (
+                {viewMode === 'status' && (
                     <ShipStatusView
                         captain={captain}
                         onSave={handleSave}
                         saving={saving}
                     />
-                ) : (
+                )}
+                {viewMode === 'sector' && (
                     <div className="sector-view-wrapper">
                         {sector && <SectorView sector={sector} ship={captain.ship} />}
                     </div>
+                )}
+                {viewMode === 'quest' && (
+                    <QuestView quests={captain.quests ?? []} />
                 )}
             </div>
         </div>

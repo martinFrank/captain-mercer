@@ -7,8 +7,8 @@ public record ShipResponse(
     String name,
     double weight,
     int crewSize,
-    double x,
-    double y,
+    String currentStarId,
+    String currentStarName,
     List<EquipmentResponse> equipment,
     SectorResponse sector
 ) {}
