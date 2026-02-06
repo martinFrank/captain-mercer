@@ -7,12 +7,14 @@ import { ViewToggle } from '../common/ViewToggle';
 import { ShipStatusView } from './ShipStatusView';
 import { SectorView } from './SectorView';
 import { QuestView } from './QuestView';
+import { StarView } from './StarView';
 import './GameView.css';
 
 const VIEW_OPTIONS = [
     { key: 'status', label: 'SHIP STATUS' },
     { key: 'sector', label: 'SECTOR MAP' },
-    { key: 'quest', label: 'QUEST' }
+    { key: 'quest', label: 'QUEST' },
+    { key: 'star', label: 'STAR' }
 ];
 
 export default function GameView() {
@@ -96,6 +98,10 @@ export default function GameView() {
                 {viewMode === 'quest' && (
                     <QuestView quests={captain.quests ?? []} />
                 )}
+                {viewMode === 'star' && sector && (() => {
+                    const currentStar = sector.stars.find(s => s.id === captain.ship.currentStarId);
+                    return currentStar ? <StarView star={currentStar} /> : null;
+                })()}
             </div>
         </div>
     );

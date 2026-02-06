@@ -2,6 +2,8 @@ package com.github.martinfrank.elitegames.backend.game.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class StarEntity {
 
@@ -14,6 +16,10 @@ public class StarEntity {
     private double y;
     private String type;
     private String size;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "star_id")
+    private List<StarServiceEntity> services;
 
     public String getId() {
         return id;
@@ -61,5 +67,13 @@ public class StarEntity {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public List<StarServiceEntity> getServices() {
+        return services;
+    }
+
+    public void setServices(List<StarServiceEntity> services) {
+        this.services = services;
     }
 }

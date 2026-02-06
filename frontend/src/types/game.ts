@@ -33,6 +33,11 @@ export interface Captain {
     quests: Quest[];
 }
 
+export interface StarService {
+    id: string;
+    type: string;
+}
+
 export interface Star {
     id: string;
     name: string;
@@ -40,6 +45,7 @@ export interface Star {
     y: number;
     type: 'yellow' | 'blue' | 'red' | 'white'; // simplistic types for now
     size: 'small' | 'medium' | 'large';
+    services: StarService[];
 }
 
 export interface StarConnection {
