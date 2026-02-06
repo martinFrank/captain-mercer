@@ -70,3 +70,40 @@ Component-based architecture in `frontend/src/`:
 - React Context for authentication state
 - Docker multi-stage builds for both backend and frontend
 - Nginx serves frontend static files in production
+
+## Clean Code Principles
+
+### Single Responsibility Principle (SRP)
+Each class and method should have only one reason to change. Keep classes focused on a single concern:
+- Services handle business logic
+- Mappers handle DTO conversion
+- Controllers handle HTTP request/response
+- Repositories handle data access
+
+### Integration Operation Segregation Principle (IOSP)
+Methods should be either **Integration** or **Operation**, never both:
+
+**Integration Methods** (I):
+- Only orchestrate/coordinate other methods
+- Contain no business logic themselves
+- Read like a table of contents
+
+**Operation Methods** (O):
+- Contain actual logic/computation
+- Do not call other methods of the same class
+- Are self-contained and testable
+
+Example:
+```java
+// Integration method - only orchestrates
+public Result process(Input input) {
+    Data data = parseInput(input);
+    Data validated = validateData(data);
+    return formatResult(validated);
+}
+
+// Operation methods - only logic
+private Data parseInput(Input input) { /* logic */ }
+private Data validateData(Data data) { /* logic */ }
+private Result formatResult(Data data) { /* logic */ }
+```
