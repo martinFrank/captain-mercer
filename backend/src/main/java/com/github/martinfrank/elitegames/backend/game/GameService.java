@@ -42,12 +42,11 @@ public class GameService {
         ship.setName("Stellar Wind"); // Default name
         ship.setWeight(45000); // Default weight
         ship.setCrewSize(4); // Default crew
-        ship.setX(500.0); // Start in middle
-        ship.setY(500.0);
 
         // Generate a new sector for this game
         SectorEntity sector = sectorService.generateAndSaveSector(1000.0, 1000.0, 15);
         ship.setSector(sector);
+        ship.setCurrentStar(findClosestStarToCenter(sector.getStars(), sector.getWidth(), sector.getHeight()));
 
         List<EquipmentEntity> initialEquipment = new ArrayList<>();
         EquipmentEntity eq1 = new EquipmentEntity();
@@ -62,6 +61,8 @@ public class GameService {
 
         ship.setEquipment(initialEquipment);
         newGame.setShip(ship);
+
+        newGame.setQuests(createInitialQuests());
 
         return gameRepository.save(newGame);
     }
@@ -85,9 +86,11 @@ public class GameService {
             ship.setWeight(context.ship.weight);
             ship.setCrewSize(context.ship.crewSize);
 
-            if (context.ship.position != null) {
-                ship.setX(context.ship.position.x);
-                ship.setY(context.ship.position.y);
+            if (context.ship.currentStarId != null) {
+                StarEntity star = findStarById(ship.getSector().getStars(), context.ship.currentStarId);
+                if (star != null) {
+                    ship.setCurrentStar(star);
+                }
             }
 
             // Update Equipment (simple replacement for now, or merge?)
@@ -130,6 +133,76 @@ public class GameService {
             }
         }
 
+        checkQuestCompletion(game);
+
         return gameRepository.save(game);
+    }
+
+    // Integration method - orchestrates quest completion checks
+    private void checkQuestCompletion(GameEntity game) {
+        if (game.getQuests() == null || game.getShip() == null) {
+            return;
+        }
+        for (QuestEntity quest : game.getQuests()) {
+            if (quest.getStatus() == QuestStatus.ACTIVE && isEscapeQuestCompleted(quest, game.getShip())) {
+                quest.setStatus(QuestStatus.COMPLETED);
+            }
+        }
+    }
+
+    // Operation method - pure logic, no calls to same class
+    private boolean isEscapeQuestCompleted(QuestEntity quest, ShipEntity ship) {
+        if (!"Flucht aus dem Palast".equals(quest.getTitle())) {
+            return false;
+        }
+        if (ship.getCurrentStar() == null || ship.getSector() == null) {
+            return false;
+        }
+        double centerX = ship.getSector().getWidth() / 2.0;
+        double centerY = ship.getSector().getHeight() / 2.0;
+        double dx = ship.getCurrentStar().getX() - centerX;
+        double dy = ship.getCurrentStar().getY() - centerY;
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        return distance > 50.0;
+    }
+
+    // Operation method - finds star closest to sector center
+    private StarEntity findClosestStarToCenter(List<StarEntity> stars, double sectorWidth, double sectorHeight) {
+        double centerX = sectorWidth / 2.0;
+        double centerY = sectorHeight / 2.0;
+        StarEntity closest = null;
+        double minDistance = Double.MAX_VALUE;
+        for (StarEntity star : stars) {
+            double dx = star.getX() - centerX;
+            double dy = star.getY() - centerY;
+            double distance = dx * dx + dy * dy;
+            if (distance < minDistance) {
+                minDistance = distance;
+                closest = star;
+            }
+        }
+        return closest;
+    }
+
+    // Operation method - finds star by ID in a list
+    private StarEntity findStarById(List<StarEntity> stars, String starId) {
+        for (StarEntity star : stars) {
+            if (star.getId().equals(starId)) {
+                return star;
+            }
+        }
+        return null;
+    }
+
+    // Operation method - creates the initial quest list
+    private List<QuestEntity> createInitialQuests() {
+        List<QuestEntity> quests = new ArrayList<>();
+        QuestEntity escapeQuest = new QuestEntity();
+        escapeQuest.setTitle("Flucht aus dem Palast");
+        escapeQuest.setDescription("Fliege zu einem anderen Stern, um dem Palast zu entkommen.");
+        escapeQuest.setStatus(QuestStatus.ACTIVE);
+        escapeQuest.setSortOrder(1);
+        quests.add(escapeQuest);
+        return quests;
     }
 }

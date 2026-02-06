@@ -3,10 +3,6 @@ package com.github.martinfrank.elitegames.backend.game.dto;
 import java.util.List;
 
 public class GameRequest {
-    public static class PositionRequest {
-        public double x;
-        public double y;
-    }
 
     public static class EquipmentRequest {
         public String id;
@@ -18,7 +14,7 @@ public class GameRequest {
         public String name;
         public double weight;
         public int crewSize;
-        public PositionRequest position;
+        public String currentStarId;
         public List<EquipmentRequest> equipment;
     }
 

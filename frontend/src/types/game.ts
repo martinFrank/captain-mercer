@@ -1,9 +1,4 @@
 
-export interface Position {
-    x: number;
-    y: number;
-}
-
 export interface TechnicalEquipment {
     id: string;
     name: string;
@@ -17,16 +12,25 @@ export interface Ship {
     weight: number; // in metric tons
     crewSize: number;
     equipment: TechnicalEquipment[];
-    x: number;
-    y: number;
+    currentStarId: string;
+    currentStarName: string;
     sector: Sector;
 }
 
+
+export interface Quest {
+    id: string;
+    title: string;
+    description: string;
+    status: 'active' | 'completed';
+    sortOrder: number;
+}
 
 export interface Captain {
     id: string;
     name: string;
     ship: Ship;
+    quests: Quest[];
 }
 
 export interface Star {

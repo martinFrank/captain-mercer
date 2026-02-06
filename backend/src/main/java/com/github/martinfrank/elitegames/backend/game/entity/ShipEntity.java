@@ -14,10 +14,9 @@ public class ShipEntity {
     private double weight;
     private int crewSize;
 
-    // Use a separate entity or embedded for position?
-    // User requested "position (2d)"
-    private double x;
-    private double y;
+    @ManyToOne
+    @JoinColumn(name = "current_star_id")
+    private StarEntity currentStar;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EquipmentEntity> equipment;
@@ -58,20 +57,12 @@ public class ShipEntity {
         this.crewSize = crewSize;
     }
 
-    public double getX() {
-        return x;
+    public StarEntity getCurrentStar() {
+        return currentStar;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+    public void setCurrentStar(StarEntity currentStar) {
+        this.currentStar = currentStar;
     }
 
     public List<EquipmentEntity> getEquipment() {

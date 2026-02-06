@@ -26,8 +26,8 @@ public class ShipMapper {
             entity.getName(),
             entity.getWeight(),
             entity.getCrewSize(),
-            entity.getX(),
-            entity.getY(),
+            entity.getCurrentStar() != null ? entity.getCurrentStar().getId() : null,
+            entity.getCurrentStar() != null ? entity.getCurrentStar().getName() : null,
             entity.getEquipment() != null
                 ? entity.getEquipment().stream().map(equipmentMapper::toResponse).toList()
                 : Collections.emptyList(),
