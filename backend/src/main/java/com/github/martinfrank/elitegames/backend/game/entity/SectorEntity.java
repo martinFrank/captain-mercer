@@ -18,6 +18,10 @@ public class SectorEntity {
     @JoinColumn(name = "sector_id")
     private List<StarEntity> stars;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sector_id")
+    private List<StarConnectionEntity> connections;
+
     public String getId() {
         return id;
     }
@@ -56,5 +60,13 @@ public class SectorEntity {
 
     public void setStars(List<StarEntity> stars) {
         this.stars = stars;
+    }
+
+    public List<StarConnectionEntity> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(List<StarConnectionEntity> connections) {
+        this.connections = connections;
     }
 }

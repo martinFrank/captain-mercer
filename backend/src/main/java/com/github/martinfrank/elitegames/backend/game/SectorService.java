@@ -2,6 +2,7 @@ package com.github.martinfrank.elitegames.backend.game;
 
 import com.github.martinfrank.elitegames.backend.game.entity.SectorEntity;
 import com.github.martinfrank.elitegames.backend.game.entity.SectorRepository;
+import com.github.martinfrank.elitegames.backend.game.entity.StarConnectionEntity;
 import com.github.martinfrank.elitegames.backend.game.entity.StarEntity;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,9 @@ public class SectorService {
 
         List<StarEntity> stars = generateStars(width, height, starCount);
         sector.setStars(stars);
+
+        List<StarConnectionEntity> connections = generateConnections(stars);
+        sector.setConnections(connections);
 
         return sector;
     }
@@ -106,5 +110,77 @@ public class SectorService {
     private String generateRandomSize() {
         String[] sizes = { "small", "medium", "large" };
         return sizes[random.nextInt(sizes.length)];
+    }
+
+    /**
+     * Generates connections between stars using Prim's Minimum Spanning Tree algorithm.
+     * This ensures all stars are connected with a minimal number of edges (n-1 for n stars).
+     */
+    private List<StarConnectionEntity> generateConnections(List<StarEntity> stars) {
+        List<StarConnectionEntity> connections = new ArrayList<>();
+
+        if (stars == null || stars.size() < 2) {
+            return connections;
+        }
+
+        int n = stars.size();
+        boolean[] inMST = new boolean[n];
+        double[] minDistance = new double[n];
+        int[] parent = new int[n];
+
+        // Initialize distances to infinity
+        for (int i = 0; i < n; i++) {
+            minDistance[i] = Double.MAX_VALUE;
+            parent[i] = -1;
+        }
+
+        // Start with the first star
+        minDistance[0] = 0;
+
+        for (int count = 0; count < n; count++) {
+            // Find the star with minimum distance that is not yet in MST
+            int u = -1;
+            double minDist = Double.MAX_VALUE;
+            for (int i = 0; i < n; i++) {
+                if (!inMST[i] && minDistance[i] < minDist) {
+                    minDist = minDistance[i];
+                    u = i;
+                }
+            }
+
+            if (u == -1) break;
+
+            inMST[u] = true;
+
+            // Update distances of adjacent stars
+            for (int v = 0; v < n; v++) {
+                if (!inMST[v]) {
+                    double dist = calculateDistance(stars.get(u), stars.get(v));
+                    if (dist < minDistance[v]) {
+                        minDistance[v] = dist;
+                        parent[v] = u;
+                    }
+                }
+            }
+        }
+
+        // Create connections from the MST
+        for (int i = 1; i < n; i++) {
+            if (parent[i] != -1) {
+                StarConnectionEntity connection = new StarConnectionEntity();
+                connection.setStarFrom(stars.get(parent[i]));
+                connection.setStarTo(stars.get(i));
+                connection.setDistance(calculateDistance(stars.get(parent[i]), stars.get(i)));
+                connections.add(connection);
+            }
+        }
+
+        return connections;
+    }
+
+    private double calculateDistance(StarEntity a, StarEntity b) {
+        double dx = a.getX() - b.getX();
+        double dy = a.getY() - b.getY();
+        return Math.sqrt(dx * dx + dy * dy);
     }
 }

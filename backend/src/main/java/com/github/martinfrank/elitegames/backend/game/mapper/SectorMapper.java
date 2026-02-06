@@ -10,9 +10,11 @@ import java.util.Collections;
 public class SectorMapper {
 
     private final StarMapper starMapper;
+    private final StarConnectionMapper starConnectionMapper;
 
-    public SectorMapper(StarMapper starMapper) {
+    public SectorMapper(StarMapper starMapper, StarConnectionMapper starConnectionMapper) {
         this.starMapper = starMapper;
+        this.starConnectionMapper = starConnectionMapper;
     }
 
     public SectorResponse toResponse(SectorEntity entity) {
@@ -26,6 +28,9 @@ public class SectorMapper {
             entity.getHeight(),
             entity.getStars() != null
                 ? entity.getStars().stream().map(starMapper::toResponse).toList()
+                : Collections.emptyList(),
+            entity.getConnections() != null
+                ? entity.getConnections().stream().map(starConnectionMapper::toResponse).toList()
                 : Collections.emptyList()
         );
     }
