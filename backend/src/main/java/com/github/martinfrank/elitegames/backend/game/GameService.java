@@ -1,5 +1,6 @@
 package com.github.martinfrank.elitegames.backend.game;
 
+import com.github.martinfrank.elitegames.backend.dto.GameRequest;
 import com.github.martinfrank.elitegames.backend.user.UserEntity;
 
 import org.springframework.stereotype.Service;
@@ -12,11 +13,11 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
-    private final SectorRepository sectorRepository;
+    private final SectorService sectorService;
 
-    public GameService(GameRepository gameRepository, SectorRepository sectorRepository) {
+    public GameService(GameRepository gameRepository, SectorService sectorService) {
         this.gameRepository = gameRepository;
-        this.sectorRepository = sectorRepository;
+        this.sectorService = sectorService;
     }
 
     @Transactional
@@ -25,11 +26,9 @@ public class GameService {
         if (existingGame != null) {
             // Ensure existing ships have a sector assigned
             if (existingGame.getShip() != null && existingGame.getShip().getSector() == null) {
-                List<SectorEntity> sectors = sectorRepository.findAll();
-                if (!sectors.isEmpty()) {
-                    existingGame.getShip().setSector(sectors.getFirst());
-                    gameRepository.save(existingGame);
-                }
+                SectorEntity sector = sectorService.generateAndSaveSector(1000.0, 1000.0, 15);
+                existingGame.getShip().setSector(sector);
+                gameRepository.save(existingGame);
             }
             return existingGame;
         }
@@ -45,11 +44,9 @@ public class GameService {
         ship.setX(500.0); // Start in middle
         ship.setY(500.0);
 
-        // Assign default sector
-        List<SectorEntity> sectors = sectorRepository.findAll();
-        if (!sectors.isEmpty()) {
-            ship.setSector(sectors.getFirst());
-        }
+        // Generate a new sector for this game
+        SectorEntity sector = sectorService.generateAndSaveSector(1000.0, 1000.0, 15);
+        ship.setSector(sector);
 
         List<EquipmentEntity> initialEquipment = new ArrayList<>();
         EquipmentEntity eq1 = new EquipmentEntity();
@@ -69,7 +66,7 @@ public class GameService {
     }
 
     @Transactional
-    public GameEntity updateGame(UserEntity user, GameDTO context) {
+    public GameEntity updateGame(UserEntity user, GameRequest context) {
         GameEntity game = gameRepository.findByUser_Id(user.getId());
         if (game == null) {
             // Should exist if logged in and called getOrCreateGame previously
@@ -108,7 +105,7 @@ public class GameService {
                 }
 
                 // Map incoming DTO to entities
-                for (GameDTO.EquipmentDTO dto : context.ship.equipment) {
+                for (GameRequest.EquipmentRequest dto : context.ship.equipment) {
                     // Try to find existing equipment by ID if provided
                     EquipmentEntity existing = null;
                     if (dto.id != null) {

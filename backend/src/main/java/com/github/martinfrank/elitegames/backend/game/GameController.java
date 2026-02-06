@@ -1,6 +1,7 @@
 package com.github.martinfrank.elitegames.backend.game;
 
 import com.github.martinfrank.elitegames.backend.dto.CaptainResponse;
+import com.github.martinfrank.elitegames.backend.dto.GameRequest;
 import com.github.martinfrank.elitegames.backend.mapper.GameMapper;
 import com.github.martinfrank.elitegames.backend.user.UserEntity;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class GameController {
     }
 
     @PostMapping
-    public ResponseEntity<CaptainResponse> saveGame(@AuthenticationPrincipal UserEntity user, @RequestBody GameDTO gameDto) {
+    public ResponseEntity<CaptainResponse> saveGame(@AuthenticationPrincipal UserEntity user, @RequestBody GameRequest gameDto) {
         LOGGER.info("POST /game");
         if (user == null) {
             return ResponseEntity.status(401).build();

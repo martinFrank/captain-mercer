@@ -1,6 +1,5 @@
 package com.github.martinfrank.elitegames.backend.user;
 
-import com.github.martinfrank.elitegames.backend.metrics.MetricsController;
 import com.github.martinfrank.elitegames.backend.security.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

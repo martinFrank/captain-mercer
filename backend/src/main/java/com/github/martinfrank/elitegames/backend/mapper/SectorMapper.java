@@ -5,7 +5,6 @@ import com.github.martinfrank.elitegames.backend.game.SectorEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.List;
 
 @Component
 public class SectorMapper {

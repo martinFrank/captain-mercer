@@ -96,12 +96,12 @@ public class SectorService {
     }
 
     private String generateRandomType() {
-        String[] types = { "Red Dwarf", "Yellow Dwarf", "Blue Giant", "Red Giant", "White Dwarf", "Neutron Star" };
+        String[] types = { "yellow", "blue", "red", "white" };
         return types[random.nextInt(types.length)];
     }
 
     private String generateRandomSize() {
-        String[] sizes = { "Small", "Medium", "Large", "Massive" };
+        String[] sizes = { "small", "medium", "large" };
         return sizes[random.nextInt(sizes.length)];
     }
 }
