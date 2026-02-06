@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c:*)",
+      "Bash(cmd //c mvnw.cmd clean compile)",
+      "Bash(cmd //c:*)",
+      "Bash(powershell -Command \"$env:JAVA_HOME=''C:\\\\Users\\\\m.frank\\\\scoop\\\\apps\\\\temurin25-jdk\\\\current''; $env:Path=''C:\\\\Users\\\\m.frank\\\\scoop\\\\apps\\\\temurin25-jdk\\\\current\\\\bin;''+$env:Path; java -version; javac -version\")",
+      "Bash(C:/Users/m.frank/scoop/apps/temurin25-jdk/current/bin/javac.exe -version)"
+    ]
+  }
+}

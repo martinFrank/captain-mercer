@@ -17,13 +17,6 @@ import java.util.List;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    //registrierung
-    //curl -X POST http://localhost:8080/api/auth/register   -H "Content-Type: application/json"   -d "{\"username\":\"martin\",\"password\":\"geheim123\"}"
-    //curl --insecure -X POST https://localhost:8443/api/auth/register   -H "Content-Type: application/json"   -d "{\"username\":\"martin\",\"password\":\"geheim123\"}"
-
-    //anmeldung:
-    //curl -X POST http://localhost:8080/api/auth/login   -H "Content-Type: application/json"   -d "{\"username\":\"martin\",\"password\":\"geheim123\"}"
-
     private final UserService userService;
     private final AuthenticationManager authManager;
     private final JwtService jwtService;
