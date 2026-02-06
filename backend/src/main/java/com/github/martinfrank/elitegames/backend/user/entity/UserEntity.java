@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.backend.user;
+package com.github.martinfrank.elitegames.backend.user.entity;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

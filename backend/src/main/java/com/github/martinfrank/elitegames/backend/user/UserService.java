@@ -1,5 +1,7 @@
 package com.github.martinfrank.elitegames.backend.user;
 
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
+import com.github.martinfrank.elitegames.backend.user.entity.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

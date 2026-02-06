@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.backend.user;
+package com.github.martinfrank.elitegames.backend.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

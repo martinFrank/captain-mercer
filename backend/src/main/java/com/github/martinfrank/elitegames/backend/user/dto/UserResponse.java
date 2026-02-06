@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.backend.dto;
+package com.github.martinfrank.elitegames.backend.user.dto;
 
 import java.util.List;
 

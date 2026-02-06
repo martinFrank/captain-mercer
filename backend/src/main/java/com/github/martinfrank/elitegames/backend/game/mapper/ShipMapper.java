@@ -1,7 +1,7 @@
-package com.github.martinfrank.elitegames.backend.mapper;
+package com.github.martinfrank.elitegames.backend.game.mapper;
 
-import com.github.martinfrank.elitegames.backend.dto.ShipResponse;
-import com.github.martinfrank.elitegames.backend.game.ShipEntity;
+import com.github.martinfrank.elitegames.backend.game.dto.ShipResponse;
+import com.github.martinfrank.elitegames.backend.game.entity.ShipEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

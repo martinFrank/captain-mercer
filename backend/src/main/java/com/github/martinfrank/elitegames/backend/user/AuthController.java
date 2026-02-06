@@ -1,6 +1,10 @@
 package com.github.martinfrank.elitegames.backend.user;
 
 import com.github.martinfrank.elitegames.backend.security.JwtService;
+import com.github.martinfrank.elitegames.backend.user.dto.AuthResponse;
+import com.github.martinfrank.elitegames.backend.user.dto.LoginRequest;
+import com.github.martinfrank.elitegames.backend.user.dto.RegisterRequest;
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;

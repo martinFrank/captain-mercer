@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.backend.game;
+package com.github.martinfrank.elitegames.backend.game.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

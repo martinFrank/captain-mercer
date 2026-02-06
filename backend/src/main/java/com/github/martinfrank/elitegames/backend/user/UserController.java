@@ -1,7 +1,8 @@
 package com.github.martinfrank.elitegames.backend.user;
 
-import com.github.martinfrank.elitegames.backend.dto.UserResponse;
-import com.github.martinfrank.elitegames.backend.mapper.UserMapper;
+import com.github.martinfrank.elitegames.backend.user.dto.UserResponse;
+import com.github.martinfrank.elitegames.backend.game.mapper.UserMapper;
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

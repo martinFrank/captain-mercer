@@ -1,6 +1,6 @@
-package com.github.martinfrank.elitegames.backend.game;
+package com.github.martinfrank.elitegames.backend.game.entity;
 
-import com.github.martinfrank.elitegames.backend.user.UserEntity;
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
 import jakarta.persistence.*;
 
 @Entity

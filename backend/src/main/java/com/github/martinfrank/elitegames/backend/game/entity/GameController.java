@@ -1,9 +1,10 @@
-package com.github.martinfrank.elitegames.backend.game;
+package com.github.martinfrank.elitegames.backend.game.entity;
 
-import com.github.martinfrank.elitegames.backend.dto.CaptainResponse;
-import com.github.martinfrank.elitegames.backend.dto.GameRequest;
-import com.github.martinfrank.elitegames.backend.mapper.GameMapper;
-import com.github.martinfrank.elitegames.backend.user.UserEntity;
+import com.github.martinfrank.elitegames.backend.game.GameService;
+import com.github.martinfrank.elitegames.backend.game.dto.CaptainResponse;
+import com.github.martinfrank.elitegames.backend.game.dto.GameRequest;
+import com.github.martinfrank.elitegames.backend.game.mapper.GameMapper;
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

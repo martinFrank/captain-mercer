@@ -1,4 +1,4 @@
-package com.github.martinfrank.elitegames.backend.game;
+package com.github.martinfrank.elitegames.backend.game.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

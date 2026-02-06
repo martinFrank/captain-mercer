@@ -1,7 +1,8 @@
 package com.github.martinfrank.elitegames.backend.game;
 
-import com.github.martinfrank.elitegames.backend.dto.GameRequest;
-import com.github.martinfrank.elitegames.backend.user.UserEntity;
+import com.github.martinfrank.elitegames.backend.game.dto.GameRequest;
+import com.github.martinfrank.elitegames.backend.game.entity.*;
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

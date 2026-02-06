@@ -1,5 +1,8 @@
 package com.github.martinfrank.elitegames.backend.game;
 
+import com.github.martinfrank.elitegames.backend.game.entity.SectorEntity;
+import com.github.martinfrank.elitegames.backend.game.entity.SectorRepository;
+import com.github.martinfrank.elitegames.backend.game.entity.StarEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

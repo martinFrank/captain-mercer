@@ -1,5 +1,7 @@
 package com.github.martinfrank.elitegames.backend.user;
 
+import com.github.martinfrank.elitegames.backend.user.entity.UserEntity;
+import com.github.martinfrank.elitegames.backend.user.entity.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
