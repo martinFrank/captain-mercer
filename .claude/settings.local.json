@@ -5,7 +5,13 @@
       "Bash(cmd //c mvnw.cmd clean compile)",
       "Bash(cmd //c:*)",
       "Bash(powershell -Command \"$env:JAVA_HOME=''C:\\\\Users\\\\m.frank\\\\scoop\\\\apps\\\\temurin25-jdk\\\\current''; $env:Path=''C:\\\\Users\\\\m.frank\\\\scoop\\\\apps\\\\temurin25-jdk\\\\current\\\\bin;''+$env:Path; java -version; javac -version\")",
-      "Bash(C:/Users/m.frank/scoop/apps/temurin25-jdk/current/bin/javac.exe -version)"
+      "Bash(C:/Users/m.frank/scoop/apps/temurin25-jdk/current/bin/javac.exe -version)",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend && npm run build 2>&1\")",
+      "Bash(cmd.exe /c \"cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend && build.cmd clean compile 2>&1\")",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nprune longest connections from each star after triangulation\n\nAdd post-processing step that removes the longest connection from\neach star \\(if it has more than one\\). This creates a sparser, more\nrealistic looking star map by eliminating the long edges that\nDelaunay triangulation tends to create at the boundaries.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nrefactor SectorService to follow IOSP principle\n\nApply Integration Operation Segregation Principle:\n- Integration methods only orchestrate other methods\n- Operation methods only contain logic, no method calls\n- Extract helper records \\(GridDimensions, Bounds\\)\n- Extract constants for magic values\n- Clear separation with section comments\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
