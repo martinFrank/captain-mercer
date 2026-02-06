@@ -38,10 +38,18 @@ export interface Star {
     size: 'small' | 'medium' | 'large';
 }
 
+export interface StarConnection {
+    id: string;
+    starFromId: string;
+    starToId: string;
+    distance: number;
+}
+
 export interface Sector {
     id: string;
     name: string;
     width: number;
     height: number;
     stars: Star[];
+    connections: StarConnection[];
 }

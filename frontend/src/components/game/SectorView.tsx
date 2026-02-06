@@ -1,4 +1,5 @@
 import type { Sector, Ship } from '../../types/game';
+import { ConnectionLines } from './ConnectionLines';
 import { StarMarker } from './StarMarker';
 import { ShipMarker } from './ShipMarker';
 import './SectorView.css';
@@ -13,6 +14,12 @@ export function SectorView({ sector, ship }: SectorViewProps) {
         <div className="sector-view-container">
             <h3 className="sector-title">SECTOR: {sector.name.toUpperCase()}</h3>
             <div className="sector-map">
+                <ConnectionLines
+                    connections={sector.connections ?? []}
+                    stars={sector.stars}
+                    sectorWidth={sector.width}
+                    sectorHeight={sector.height}
+                />
                 {sector.stars.map(star => (
                     <StarMarker
                         key={star.id}
