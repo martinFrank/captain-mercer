@@ -26,6 +26,8 @@ public class SectorMapper {
             entity.getName(),
             entity.getWidth(),
             entity.getHeight(),
+            entity.getGridX(),
+            entity.getGridY(),
             entity.getStars() != null
                 ? entity.getStars().stream().map(starMapper::toResponse).toList()
                 : Collections.emptyList(),

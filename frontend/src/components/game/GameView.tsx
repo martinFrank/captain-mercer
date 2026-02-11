@@ -6,6 +6,7 @@ import { ErrorMessage } from '../common/ErrorMessage';
 import { ViewToggle } from '../common/ViewToggle';
 import { ShipStatusView } from './ShipStatusView';
 import { SectorView } from './SectorView';
+import { GalacticChartView } from './GalacticChartView';
 import { QuestView } from './QuestView';
 import { StarView } from './StarView';
 import './GameView.css';
@@ -13,6 +14,7 @@ import './GameView.css';
 const VIEW_OPTIONS = [
     { key: 'status', label: 'SHIP STATUS' },
     { key: 'sector', label: 'SECTOR MAP' },
+    { key: 'galactic', label: 'GALACTIC CHART' },
     { key: 'quest', label: 'QUEST' },
     { key: 'star', label: 'STAR' }
 ];
@@ -94,6 +96,13 @@ export default function GameView() {
                     <div className="sector-view-wrapper">
                         {sector && <SectorView sector={sector} ship={captain.ship} />}
                     </div>
+                )}
+                {viewMode === 'galactic' && sector && (
+                    <GalacticChartView
+                        sectors={captain.sectors ?? []}
+                        currentSectorId={sector.id}
+                        ship={captain.ship}
+                    />
                 )}
                 {viewMode === 'quest' && (
                     <QuestView quests={captain.quests ?? []} />

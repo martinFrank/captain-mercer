@@ -26,11 +26,19 @@ export interface Quest {
     sortOrder: number;
 }
 
+export interface SectorSummary {
+    id: string;
+    name: string;
+    gridX: number;
+    gridY: number;
+}
+
 export interface Captain {
     id: string;
     name: string;
     ship: Ship;
     quests: Quest[];
+    sectors: Sector[];
 }
 
 export interface StarService {
@@ -60,6 +68,8 @@ export interface Sector {
     name: string;
     width: number;
     height: number;
+    gridX: number;
+    gridY: number;
     stars: Star[];
     connections: StarConnection[];
 }

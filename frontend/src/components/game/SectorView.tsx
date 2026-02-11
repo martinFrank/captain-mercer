@@ -6,11 +6,11 @@ import './SectorView.css';
 
 interface SectorViewProps {
     sector: Sector;
-    ship: Ship;
+    ship?: Ship;
 }
 
 export function SectorView({ sector, ship }: SectorViewProps) {
-    const currentStar = sector.stars.find(s => s.id === ship.currentStarId);
+    const currentStar = ship ? sector.stars.find(s => s.id === ship.currentStarId) : undefined;
     const starX = currentStar?.x ?? 0;
     const starY = currentStar?.y ?? 0;
 
@@ -33,16 +33,20 @@ export function SectorView({ sector, ship }: SectorViewProps) {
                     />
                 ))}
 
-                <ShipMarker
-                    x={starX}
-                    y={starY}
-                    sectorWidth={sector.width}
-                    sectorHeight={sector.height}
-                />
+                {ship && (
+                    <ShipMarker
+                        x={starX}
+                        y={starY}
+                        sectorWidth={sector.width}
+                        sectorHeight={sector.height}
+                    />
+                )}
             </div>
-            <div className="sector-coordinates">
-                STAR: {ship.currentStarName ?? 'Unknown'}
-            </div>
+            {ship && (
+                <div className="sector-coordinates">
+                    STAR: {ship.currentStarName ?? 'Unknown'}
+                </div>
+            )}
         </div>
     );
 }

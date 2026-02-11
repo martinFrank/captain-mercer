@@ -29,13 +29,13 @@ public class SectorService {
 
     // ==================== INTEGRATION METHODS ====================
 
-    public SectorEntity generateAndSaveSector(double width, double height, int starCount) {
-        SectorEntity sector = generateSector(width, height, starCount);
+    public SectorEntity generateAndSaveSector(double width, double height, int starCount, int gridX, int gridY) {
+        SectorEntity sector = generateSector(width, height, starCount, gridX, gridY);
         return sectorRepository.save(sector);
     }
 
-    public SectorEntity generateSector(double width, double height, int starCount) {
-        SectorEntity sector = createSectorEntity(width, height);
+    public SectorEntity generateSector(double width, double height, int starCount, int gridX, int gridY) {
+        SectorEntity sector = createSectorEntity(width, height, gridX, gridY);
         List<StarEntity> stars = starPlacementService.generateStars(width, height, starCount);
         starServiceAssigner.assignServices(stars);
         List<StarConnectionEntity> connections = starConnectionService.generateConnections(stars);
@@ -46,11 +46,13 @@ public class SectorService {
 
     // ==================== OPERATION METHODS ====================
 
-    private SectorEntity createSectorEntity(double width, double height) {
+    private SectorEntity createSectorEntity(double width, double height, int gridX, int gridY) {
         SectorEntity sector = new SectorEntity();
         sector.setName("Sector-" + UUID.randomUUID().toString().substring(0, 8));
         sector.setWidth(width);
         sector.setHeight(height);
+        sector.setGridX(gridX);
+        sector.setGridY(gridY);
         return sector;
     }
 }

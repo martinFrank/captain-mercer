@@ -7,6 +7,8 @@ public record SectorResponse(
     String name,
     double width,
     double height,
+    int gridX,
+    int gridY,
     List<StarResponse> stars,
     List<StarConnectionResponse> connections
 ) {}

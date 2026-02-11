@@ -6,5 +6,6 @@ public record CaptainResponse(
     String id,
     String name,
     ShipResponse ship,
-    List<QuestResponse> quests
+    List<QuestResponse> quests,
+    List<SectorResponse> sectors
 ) {}

@@ -21,6 +21,10 @@ public class GameEntity {
     private ShipEntity ship;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "game_id")
+    private List<SectorEntity> sectors;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<QuestEntity> quests;
 
     public String getId() {
@@ -45,6 +49,14 @@ public class GameEntity {
 
     public void setShip(ShipEntity ship) {
         this.ship = ship;
+    }
+
+    public List<SectorEntity> getSectors() {
+        return sectors;
+    }
+
+    public void setSectors(List<SectorEntity> sectors) {
+        this.sectors = sectors;
     }
 
     public List<QuestEntity> getQuests() {
