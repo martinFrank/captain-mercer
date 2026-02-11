@@ -30,7 +30,21 @@
       "Bash(tr:*)",
       "Bash(\"/c/Program Files/nodejs/node.exe\" -e \"const {execSync} = require\\(''child_process''\\); console.log\\(execSync\\(''where npm'', {encoding:''utf8''}\\)\\)\")",
       "Bash(\"/c/Program Files/nodejs/node.exe\" -e \"console.log\\(require\\(''child_process''\\).execSync\\(''corepack enable && npm --version'', {encoding:''utf8'', shell:''cmd.exe''}\\)\\)\")",
-      "Bash(\"/c/Users/m.frank/AppData/Roaming/nvm/v18.12.0/npm.cmd\" run --prefix \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\" lint)"
+      "Bash(\"/c/Users/m.frank/AppData/Roaming/nvm/v18.12.0/npm.cmd\" run --prefix \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\" lint)",
+      "Bash(git -C \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\" checkout -b feature/planet_details)",
+      "Bash(%PATH%\" & cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend & .\\\\mvnw.cmd clean compile\")",
+      "Bash(powershell -Command \"$env:JAVA_HOME=''C:\\\\Users\\\\m.frank\\\\scoop\\\\apps\\\\temurin25-jdk\\\\current''; $env:PATH=\"\"$env:JAVA_HOME\\\\bin;$env:PATH\"\"; Set-Location ''C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend''; .\\\\mvnw.cmd clean compile\")",
+      "Bash(powershell -Command \"$env:JAVA_HOME = ''C:\\\\Users\\\\m.frank\\\\scoop\\\\apps\\\\temurin25-jdk\\\\current''; $env:PATH = \"\"$env:JAVA_HOME\\\\bin;$env:PATH\"\"; Set-Location ''C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend''; .\\\\mvnw.cmd clean compile\")",
+      "Bash(C:Usersm.frankIdeaProjectsprivatcaptain-mercerbackendbuild.cmd clean compile)",
+      "Bash(where npm:*)",
+      "Bash(PATH=\"/c/Users/m.frank/AppData/Roaming/nvm/v24.3.0:$PATH\" npm --prefix \"C:/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend\" run lint:*)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\":*)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" -e \"const path = require\\(''path''\\); const npmPath = path.join\\(path.dirname\\(process.execPath\\), ''..'', ''nvm'', ''v24.3.0''\\); const fs = require\\(''fs''\\); console.log\\(fs.readdirSync\\(npmPath\\).filter\\(f => f.includes\\(''npm''\\)\\)\\)\")",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" \"/c/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend/node_modules/.bin/eslint\" --version)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" \"/c/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend/node_modules/eslint/bin/eslint.js\" --max-warnings 0 \"/c/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend/src\")",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" \"./node_modules/eslint/bin/eslint.js\" --max-warnings 0 \"./src\")",
+      "Bash(%PATH%\" && cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend && mvnw.cmd clean compile\")",
+      "Bash(powershell:*)"
     ]
   }
 }
