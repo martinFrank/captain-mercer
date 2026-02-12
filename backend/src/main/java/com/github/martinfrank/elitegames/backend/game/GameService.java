@@ -25,46 +25,50 @@ public class GameService {
     public GameEntity getOrCreateGame(UserEntity user) {
         GameEntity existingGame = gameRepository.findByUser_Id(user.getId());
         if (existingGame != null) {
-            // Ensure existing ships have a sector assigned
-            if (existingGame.getShip() != null && existingGame.getShip().getSector() == null) {
-                SectorEntity sector = sectorService.generateAndSaveSector(1000.0, 1000.0, 15);
-                existingGame.getShip().setSector(sector);
-                gameRepository.save(existingGame);
-            }
             return existingGame;
         }
+        return createNewGame(user);
+    }
 
-        // Create new game
+    // Integration method - orchestrates new game creation
+    private GameEntity createNewGame(UserEntity user) {
         GameEntity newGame = new GameEntity();
         newGame.setUser(user);
 
-        ShipEntity ship = new ShipEntity();
-        ship.setName("Stellar Wind"); // Default name
-        ship.setWeight(45000); // Default weight
-        ship.setCrewSize(4); // Default crew
+        List<SectorEntity> sectors = generateGalacticGrid();
+        newGame.setSectors(sectors);
 
-        // Generate a new sector for this game
-        SectorEntity sector = sectorService.generateAndSaveSector(1000.0, 1000.0, 15);
-        ship.setSector(sector);
-        ship.setCurrentStar(findClosestStarToCenter(sector.getStars(), sector.getWidth(), sector.getHeight()));
-
-        List<EquipmentEntity> initialEquipment = new ArrayList<>();
-        EquipmentEntity eq1 = new EquipmentEntity();
-        eq1.setName("Ion Thrusters");
-        eq1.setStatus("active");
-        initialEquipment.add(eq1);
-
-        EquipmentEntity eq2 = new EquipmentEntity();
-        eq2.setName("Deflector Shield");
-        eq2.setStatus("active");
-        initialEquipment.add(eq2);
-
-        ship.setEquipment(initialEquipment);
+        SectorEntity middleSector = findSectorByGrid(sectors, 1, 1);
+        ShipEntity ship = createDefaultShip(middleSector);
         newGame.setShip(ship);
 
         newGame.setQuests(createInitialQuests());
 
         return gameRepository.save(newGame);
+    }
+
+    // Integration method - generates 3x3 grid of sectors
+    private List<SectorEntity> generateGalacticGrid() {
+        List<SectorEntity> sectors = new ArrayList<>();
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                SectorEntity sector = sectorService.generateAndSaveSector(1000.0, 1000.0, 15, x, y);
+                sectors.add(sector);
+            }
+        }
+        return sectors;
+    }
+
+    // Integration method - creates ship in a given sector
+    private ShipEntity createDefaultShip(SectorEntity sector) {
+        ShipEntity ship = new ShipEntity();
+        ship.setName("Stellar Wind");
+        ship.setWeight(45000);
+        ship.setCrewSize(4);
+        ship.setSector(sector);
+        ship.setCurrentStar(findClosestStarToCenter(sector.getStars(), sector.getWidth(), sector.getHeight()));
+        ship.setEquipment(createInitialEquipment());
+        return ship;
     }
 
     @Transactional
@@ -164,6 +168,31 @@ public class GameService {
         double dy = ship.getCurrentStar().getY() - centerY;
         double distance = Math.sqrt(dx * dx + dy * dy);
         return distance > 50.0;
+    }
+
+    // Operation method - finds sector by grid coordinates
+    private SectorEntity findSectorByGrid(List<SectorEntity> sectors, int gridX, int gridY) {
+        for (SectorEntity sector : sectors) {
+            if (sector.getGridX() == gridX && sector.getGridY() == gridY) {
+                return sector;
+            }
+        }
+        return sectors.getFirst();
+    }
+
+    // Operation method - creates initial equipment list
+    private List<EquipmentEntity> createInitialEquipment() {
+        List<EquipmentEntity> equipment = new ArrayList<>();
+        EquipmentEntity eq1 = new EquipmentEntity();
+        eq1.setName("Ion Thrusters");
+        eq1.setStatus("active");
+        equipment.add(eq1);
+
+        EquipmentEntity eq2 = new EquipmentEntity();
+        eq2.setName("Deflector Shield");
+        eq2.setStatus("active");
+        equipment.add(eq2);
+        return equipment;
     }
 
     // Operation method - finds star closest to sector center

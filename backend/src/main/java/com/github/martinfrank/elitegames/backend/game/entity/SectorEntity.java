@@ -13,6 +13,8 @@ public class SectorEntity {
     private String name;
     private double width;
     private double height;
+    private int gridX;
+    private int gridY;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "sector_id")
@@ -52,6 +54,22 @@ public class SectorEntity {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public int getGridX() {
+        return gridX;
+    }
+
+    public void setGridX(int gridX) {
+        this.gridX = gridX;
+    }
+
+    public int getGridY() {
+        return gridY;
+    }
+
+    public void setGridY(int gridY) {
+        this.gridY = gridY;
     }
 
     public List<StarEntity> getStars() {
