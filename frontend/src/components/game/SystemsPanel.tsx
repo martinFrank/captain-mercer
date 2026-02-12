@@ -10,13 +10,13 @@ interface SystemsPanelProps {
 export function SystemsPanel({ equipment, onSave, saving }: SystemsPanelProps) {
     return (
         <div className="systems-panel-container">
-            <div className="systems-panel">
+            <div className="game-card systems-panel">
                 <div className="systems-title">SYSTEMS</div>
                 <div className="systems-list">
                     {equipment?.map(eq => (
                         <span
                             key={eq.id}
-                            className={`system-status ${eq.status === 'active' ? 'active' : 'inactive'}`}
+                            className={`game-badge system-status ${eq.status === 'active' ? 'game-badge-active' : 'inactive'}`}
                         >
                             {eq.name}
                         </span>

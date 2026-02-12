@@ -22,3 +22,31 @@
     height: 100%;
     position: relative;
 }
+
+.ftl-jump-panel {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 20, 40, 0.9);
+    border: 1px solid rgba(0, 200, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+.ftl-target-name {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #0cf;
+}
+
+.ftl-jump-btn {
+    font-size: 0.8rem;
+    padding: 6px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

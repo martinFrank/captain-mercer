@@ -1,15 +1,9 @@
 import { api } from '../api';
-import type { Captain, Sector } from '../types/game';
+import type { Captain } from '../types/game';
 
 export const fetchGameState = async (): Promise<Captain> => {
     const response = await api.get<Captain>('/api/game');
     return response.data;
-};
-
-export const fetchCurrentSector = async (): Promise<Sector | null> => {
-    // Sector is now fetched as part of the game state (captain.ship.sector)
-    // This function can be deprecated or used to force refresh if needed
-    return null;
 };
 
 export const saveGameState = async (captain: Captain): Promise<Captain> => {

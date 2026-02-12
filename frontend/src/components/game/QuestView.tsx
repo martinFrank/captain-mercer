@@ -9,12 +9,12 @@ export function QuestView({ quests }: QuestViewProps) {
     const sorted = [...quests].sort((a, b) => a.sortOrder - b.sortOrder);
 
     return (
-        <div className="quest-view">
-            <div className="quest-list">
+        <div className="game-panel">
+            <div className="game-list">
                 {sorted.map(quest => (
-                    <div key={quest.id} className={`quest-item ${quest.status}`}>
+                    <div key={quest.id} className={`game-card quest-item ${quest.status}`}>
                         <div className="quest-header">
-                            <span className={`quest-badge ${quest.status}`}>
+                            <span className={`game-badge ${quest.status === 'active' ? 'game-badge-active' : 'game-badge-completed'}`}>
                                 {quest.status === 'active' ? '[AKTIV]' : '[ERLEDIGT]'}
                             </span>
                             <span className="quest-title">{quest.title}</span>
@@ -23,7 +23,7 @@ export function QuestView({ quests }: QuestViewProps) {
                     </div>
                 ))}
                 {sorted.length === 0 && (
-                    <div className="quest-empty">Keine Quests verfügbar.</div>
+                    <div className="game-empty">Keine Quests verfügbar.</div>
                 )}
             </div>
         </div>
