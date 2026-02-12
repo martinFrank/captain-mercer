@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
+import { isAxiosError } from "axios";
 import { api } from "../api";
 
 export default function LoginPage() {
@@ -24,12 +25,10 @@ export default function LoginPage() {
             });
             login(res.data.token);
             navigate("/");
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
-            setError(
-                err.response?.data?.message ||
-                "Login fehlgeschlagen. Bitte prüfen Sie Ihre Eingaben."
-            );
+            const message = isAxiosError(err) ? err.response?.data?.message : undefined;
+            setError(message || "Login fehlgeschlagen. Bitte prüfen Sie Ihre Eingaben.");
         } finally {
             setIsLoading(false);
         }
