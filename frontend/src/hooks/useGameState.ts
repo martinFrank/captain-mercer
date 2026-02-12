@@ -40,5 +40,23 @@ export function useGameState() {
         }
     };
 
-    return { captain, sector, loading, saving, saveGame };
+    const jumpToStar = async (starId: string) => {
+        if (!captain) return;
+        setSaving(true);
+        try {
+            const jumpedCaptain = {
+                ...captain,
+                ship: { ...captain.ship, currentStarId: starId }
+            };
+            const updated = await saveGameState(jumpedCaptain);
+            setCaptain(updated);
+        } catch (error) {
+            console.error("FTL jump failed:", error);
+            throw error;
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    return { captain, sector, loading, saving, saveGame, jumpToStar };
 }

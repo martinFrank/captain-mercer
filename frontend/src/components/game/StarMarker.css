@@ -86,3 +86,38 @@
     width: 12px;
     height: 12px;
 }
+
+/* Selected star - FTL jump target */
+.star-selected .star-icon {
+    box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+}
+
+.star-selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 1px dashed rgba(0, 200, 255, 0.7);
+    border-radius: 50%;
+    animation: target-pulse 1.5s infinite;
+}
+
+@keyframes target-pulse {
+    0% { width: 15px; height: 15px; opacity: 1; }
+    100% { width: 40px; height: 40px; opacity: 0; }
+}
+
+.star-selected .star-label {
+    opacity: 1;
+    color: #0cf;
+    font-weight: bold;
+}
+
+/* Current star - ship location indicator */
+.star-current .star-icon {
+    outline: 2px solid #0f0;
+    outline-offset: 3px;
+}

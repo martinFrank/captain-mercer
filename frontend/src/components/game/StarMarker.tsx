@@ -5,17 +5,27 @@ interface StarMarkerProps {
     star: Star;
     sectorWidth: number;
     sectorHeight: number;
+    isSelected?: boolean;
+    isCurrent?: boolean;
+    onSelect?: (starId: string) => void;
 }
 
-export function StarMarker({ star, sectorWidth, sectorHeight }: StarMarkerProps) {
+export function StarMarker({ star, sectorWidth, sectorHeight, isSelected, isCurrent, onSelect }: StarMarkerProps) {
+    const handleClick = () => {
+        if (onSelect) {
+            onSelect(star.id);
+        }
+    };
+
     return (
         <div
-            className={`star-marker star-${star.type} star-${star.size}`}
+            className={`star-marker star-${star.type} star-${star.size}${isSelected ? ' star-selected' : ''}${isCurrent ? ' star-current' : ''}`}
             style={{
                 left: `${(star.x / sectorWidth) * 100}%`,
                 top: `${(star.y / sectorHeight) * 100}%`
             }}
             title={star.name}
+            onClick={handleClick}
         >
             <div className="star-icon"></div>
             <span className="star-label">{star.name}</span>
