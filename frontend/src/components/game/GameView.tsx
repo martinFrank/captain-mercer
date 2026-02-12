@@ -15,8 +15,8 @@ const VIEW_OPTIONS = [
     { key: 'status', label: 'SHIP STATUS' },
     { key: 'sector', label: 'SECTOR MAP' },
     { key: 'galactic', label: 'GALACTIC CHART' },
-    { key: 'quest', label: 'QUEST' },
-    { key: 'star', label: 'STAR' }
+    { key: 'star', label: 'STAR' },
+    { key: 'quest', label: 'QUEST' }    
 ];
 
 export default function GameView() {
