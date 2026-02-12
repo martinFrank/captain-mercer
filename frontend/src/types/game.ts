@@ -1,3 +1,4 @@
+export type CombatPhase = 'engage' | 'targeted' | 'destroyed' | 'loot';
 
 export interface TechnicalEquipment {
     id: string;

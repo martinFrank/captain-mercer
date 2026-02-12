@@ -86,3 +86,33 @@
     width: 12px;
     height: 12px;
 }
+
+/* Selected Star */
+.star-selected .star-icon {
+    box-shadow: 0 0 15px currentColor, 0 0 25px cyan;
+}
+
+.star-selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 28px;
+    transform: translate(-50%, -50%);
+    border: 2px dashed cyan;
+    border-radius: 50%;
+    animation: target-pulse 1.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.star-selected .star-label {
+    opacity: 1;
+    color: cyan;
+    font-weight: bold;
+}
+
+@keyframes target-pulse {
+    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+}

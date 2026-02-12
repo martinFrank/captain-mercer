@@ -22,3 +22,43 @@
     height: 100%;
     position: relative;
 }
+
+.ftl-jump-panel {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 1.2rem;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid cyan;
+    border-radius: 6px;
+    z-index: 150;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.ftl-target-label {
+    font-size: 0.8rem;
+    color: cyan;
+    letter-spacing: 1px;
+}
+
+.ftl-jump-btn {
+    background: #003344;
+    color: cyan;
+    border: 2px solid cyan;
+    padding: 0.4rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.ftl-jump-btn:hover {
+    background: #005566;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+}

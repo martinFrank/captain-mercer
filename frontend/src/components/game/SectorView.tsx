@@ -7,9 +7,11 @@ import './SectorView.css';
 interface SectorViewProps {
     sector: Sector;
     ship?: Ship;
+    selectedStarId?: string | null;
+    onStarSelect?: (starId: string) => void;
 }
 
-export function SectorView({ sector, ship }: SectorViewProps) {
+export function SectorView({ sector, ship, selectedStarId, onStarSelect }: SectorViewProps) {
     const currentStar = ship ? sector.stars.find(s => s.id === ship.currentStarId) : undefined;
     const starX = currentStar?.x ?? 0;
     const starY = currentStar?.y ?? 0;
@@ -30,6 +32,8 @@ export function SectorView({ sector, ship }: SectorViewProps) {
                         star={star}
                         sectorWidth={sector.width}
                         sectorHeight={sector.height}
+                        isSelected={star.id === selectedStarId}
+                        onSelect={onStarSelect}
                     />
                 ))}
 
