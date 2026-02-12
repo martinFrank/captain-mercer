@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { Captain, Sector } from '../../types/game';
-import { fetchGameState, saveGameState } from '../../api/gameApi';
+import { useState } from 'react';
+import { useGameState } from '../../hooks/useGameState';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorMessage } from '../common/ErrorMessage';
 import { ViewToggle } from '../common/ViewToggle';
@@ -16,47 +15,19 @@ const VIEW_OPTIONS = [
     { key: 'sector', label: 'SECTOR MAP' },
     { key: 'galactic', label: 'GALACTIC CHART' },
     { key: 'star', label: 'STAR' },
-    { key: 'quest', label: 'QUEST' }    
+    { key: 'quest', label: 'QUEST' }
 ];
 
 export default function GameView() {
-    const [captain, setCaptain] = useState<Captain | null>(null);
-    const [sector, setSector] = useState<Sector | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
+    const { captain, sector, loading, saving, saveGame } = useGameState();
     const [viewMode, setViewMode] = useState('status');
 
-    useEffect(() => {
-        loadGame();
-    }, []);
-
-    const loadGame = async () => {
-        try {
-            const captainData = await fetchGameState();
-            setCaptain(captainData);
-            if (captainData.ship.sector) {
-                setSector(captainData.ship.sector);
-            }
-        } catch (error) {
-            console.error("Failed to load game:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleSave = async () => {
-        if (!captain) return;
-        setSaving(true);
         try {
-            const updated = await saveGameState(captain);
-            console.info("Game saved successfully!", updated);
-            setCaptain(updated);
+            await saveGame();
             alert("Game saved successfully!");
-        } catch (error) {
-            console.error("Failed to save game:", error);
+        } catch {
             alert("Failed to save game.");
-        } finally {
-            setSaving(false);
         }
     };
 
@@ -76,6 +47,8 @@ export default function GameView() {
         );
     }
 
+    const currentStar = sector?.stars.find(s => s.id === captain.ship.currentStarId) ?? null;
+
     return (
         <div className="game-view-container">
             <ViewToggle
@@ -92,9 +65,9 @@ export default function GameView() {
                         saving={saving}
                     />
                 )}
-                {viewMode === 'sector' && (
+                {viewMode === 'sector' && sector && (
                     <div className="sector-view-wrapper">
-                        {sector && <SectorView sector={sector} ship={captain.ship} />}
+                        <SectorView sector={sector} ship={captain.ship} />
                     </div>
                 )}
                 {viewMode === 'galactic' && sector && (
@@ -107,10 +80,9 @@ export default function GameView() {
                 {viewMode === 'quest' && (
                     <QuestView quests={captain.quests ?? []} />
                 )}
-                {viewMode === 'star' && sector && (() => {
-                    const currentStar = sector.stars.find(s => s.id === captain.ship.currentStarId);
-                    return currentStar ? <StarView star={currentStar} /> : null;
-                })()}
+                {viewMode === 'star' && currentStar && (
+                    <StarView star={currentStar} />
+                )}
             </div>
         </div>
     );

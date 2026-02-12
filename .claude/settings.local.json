@@ -44,7 +44,12 @@
       "Bash(\"/c/Program Files/nodejs/node.exe\" \"/c/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend/node_modules/eslint/bin/eslint.js\" --max-warnings 0 \"/c/Users/m.frank/IdeaProjects/privat/captain-mercer/frontend/src\")",
       "Bash(\"/c/Program Files/nodejs/node.exe\" \"./node_modules/eslint/bin/eslint.js\" --max-warnings 0 \"./src\")",
       "Bash(%PATH%\" && cd /d C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\backend && mvnw.cmd clean compile\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(where:*)",
+      "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\node_modules\\\\.bin\\\\tsc\" --noEmit --project \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\tsconfig.app.json\")",
+      "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\node_modules\\\\typescript\\\\bin\\\\tsc\" --noEmit --project \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\tsconfig.app.json\")",
+      "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\node_modules\\\\eslint\\\\bin\\\\eslint.js\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\src\")",
+      "Bash(del \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\run_verify.ps1\")"
     ]
   }
 }
