@@ -42,7 +42,6 @@ export default function GameView() {
         try {
             await jumpToStar(selectedStarId);
             setSelectedStarId(null);
-            setViewMode('star');
         } catch {
             alert("FTL jump failed.");
         }
