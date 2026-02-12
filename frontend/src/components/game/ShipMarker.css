@@ -22,10 +22,10 @@
     height: 20px;
     border: 1px dashed rgba(0, 255, 0, 0.5);
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    animation: ship-pulse 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes ship-pulse {
     0% {
         width: 10px;
         height: 10px;

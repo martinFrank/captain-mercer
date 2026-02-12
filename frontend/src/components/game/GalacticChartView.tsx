@@ -26,7 +26,7 @@ export function GalacticChartView({ sectors, currentSectorId, ship }: GalacticCh
     const grid = buildGrid(sectors);
 
     return (
-        <div className="galactic-chart">
+        <div className="game-panel galactic-chart">
             <div className="galactic-grid">
                 {grid.flatMap((row, y) =>
                     row.map((cell, x) => (
