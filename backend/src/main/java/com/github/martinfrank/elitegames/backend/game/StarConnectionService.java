@@ -4,8 +4,10 @@ import com.github.martinfrank.elitegames.backend.game.entity.StarConnectionEntit
 import com.github.martinfrank.elitegames.backend.game.entity.StarEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,8 +44,10 @@ public class StarConnectionService {
 
     private List<StarConnectionEntity> pruneConnections(List<StarConnectionEntity> connections) {
         Map<StarEntity, List<StarConnectionEntity>> adjacency = buildAdjacencyMap(connections);
-        Set<StarConnectionEntity> toRemove = findLongestConnectionsToRemove(adjacency);
-        return removeConnections(connections, toRemove);
+        Set<StarConnectionEntity> candidates = findLongestConnectionsToRemove(adjacency);
+        List<StarConnectionEntity> sortedCandidates = sortByDistanceDescending(candidates);
+        Set<StarConnectionEntity> safeToRemove = findSafeRemovals(connections, sortedCandidates);
+        return removeConnections(connections, safeToRemove);
     }
 
     private List<Triangle> buildTriangulation(List<Point> points, Triangle superTriangle) {
@@ -194,6 +198,60 @@ public class StarConnectionService {
             }
         }
         return toRemove;
+    }
+
+    private List<StarConnectionEntity> sortByDistanceDescending(Set<StarConnectionEntity> candidates) {
+        return candidates.stream()
+                .sorted(Comparator.comparingDouble(StarConnectionEntity::getDistance).reversed())
+                .toList();
+    }
+
+    private Set<StarConnectionEntity> findSafeRemovals(
+            List<StarConnectionEntity> allConnections, List<StarConnectionEntity> candidates) {
+        Set<StarConnectionEntity> removed = new HashSet<>();
+        for (StarConnectionEntity candidate : candidates) {
+            removed.add(candidate);
+            if (!isFullyConnected(allConnections, removed)) {
+                removed.remove(candidate);
+            }
+        }
+        return removed;
+    }
+
+    private boolean isFullyConnected(
+            List<StarConnectionEntity> allConnections, Set<StarConnectionEntity> excluded) {
+        Set<StarEntity> allStars = new HashSet<>();
+        Map<StarEntity, List<StarEntity>> adjacency = new HashMap<>();
+
+        for (StarConnectionEntity conn : allConnections) {
+            allStars.add(conn.getStarFrom());
+            allStars.add(conn.getStarTo());
+            if (!excluded.contains(conn)) {
+                adjacency.computeIfAbsent(conn.getStarFrom(), k -> new ArrayList<>()).add(conn.getStarTo());
+                adjacency.computeIfAbsent(conn.getStarTo(), k -> new ArrayList<>()).add(conn.getStarFrom());
+            }
+        }
+
+        if (allStars.isEmpty()) {
+            return true;
+        }
+
+        StarEntity start = allStars.iterator().next();
+        Set<StarEntity> visited = new HashSet<>();
+        Deque<StarEntity> queue = new ArrayDeque<>();
+        queue.add(start);
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            StarEntity current = queue.poll();
+            for (StarEntity neighbor : adjacency.getOrDefault(current, List.of())) {
+                if (visited.add(neighbor)) {
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        return visited.size() == allStars.size();
     }
 
     private List<StarConnectionEntity> removeConnections(
