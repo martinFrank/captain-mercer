@@ -10,6 +10,8 @@ import { QuestView } from './QuestView';
 import { StarView } from './StarView';
 import { CombatView } from './CombatView';
 import { LootDialog } from './LootDialog';
+import { generateEnemyShip } from '../../utils/enemyGenerator';
+import type { CombatPhase, Ship } from '../../types/game';
 import './GameView.css';
 
 const VIEW_OPTIONS = [
@@ -24,6 +26,8 @@ export default function GameView() {
     const { captain, sector, loading, saving, saveGame, jumpToStar } = useGameState();
     const [viewMode, setViewMode] = useState('status');
     const [selectedStarId, setSelectedStarId] = useState<string | null>(null);
+    const [combatPhase, setCombatPhase] = useState<CombatPhase | null>(null);
+    const [enemyShip, setEnemyShip] = useState<Ship | null>(null);
 
     const handleSave = async () => {
         try {
@@ -44,43 +48,11 @@ export default function GameView() {
         try {
             await jumpToStar(selectedStarId);
             setSelectedStarId(null);
+            setEnemyShip(generateEnemyShip());
+            setCombatPhase('engage');
         } catch {
             alert("FTL jump failed.");
         }
-    };
-
-    const handleViewChange = (key: string) => {
-        if (combatPhase !== null) return;
-        setViewMode(key);
-    };
-
-    const handleStarSelect = (starId: string) => {
-        if (!captain || starId === captain.ship.currentStarId) return;
-        setSelectedStarId(prev => prev === starId ? null : starId);
-    };
-
-    const handleFtlJump = async () => {
-        if (!captain || !sector || !selectedStarId) return;
-        const targetStar = sector.stars.find(s => s.id === selectedStarId);
-        if (!targetStar) return;
-
-        const updatedShip = { ...captain.ship, currentStarId: targetStar.id, currentStarName: targetStar.name };
-        const updatedCaptain = { ...captain, ship: updatedShip };
-
-        try {
-            const saved = await saveGameState(updatedCaptain);
-            setCaptain(saved);
-            if (saved.ship.sector) {
-                setSector(saved.ship.sector);
-            }
-        } catch (error) {
-            console.error("FTL jump failed:", error);
-            return;
-        }
-
-        setSelectedStarId(null);
-        setEnemyShip(generateEnemyShip());
-        setCombatPhase('engage');
     };
 
     const handleTargetEnemy = () => {
@@ -95,6 +67,11 @@ export default function GameView() {
     const handleLootDismiss = () => {
         setCombatPhase(null);
         setEnemyShip(null);
+    };
+
+    const handleViewChange = (key: string) => {
+        if (combatPhase !== null) return;
+        setViewMode(key);
     };
 
     if (loading) {
@@ -170,6 +147,22 @@ export default function GameView() {
                 )}
                 {viewMode === 'star' && currentStar && (
                     <StarView star={currentStar} />
+                )}
+                {combatPhase && combatPhase !== 'loot' && enemyShip && (
+                    <CombatView
+                        playerShip={captain.ship}
+                        enemyShip={enemyShip}
+                        phase={combatPhase}
+                        onTargetEnemy={handleTargetEnemy}
+                        onFire={handleFire}
+                    />
+                )}
+                {combatPhase === 'loot' && enemyShip && (
+                    <LootDialog
+                        enemyShipName={enemyShip.name}
+                        loot={enemyShip.equipment}
+                        onDismiss={handleLootDismiss}
+                    />
                 )}
             </div>
         </div>

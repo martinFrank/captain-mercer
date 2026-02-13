@@ -49,7 +49,9 @@
       "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\node_modules\\\\.bin\\\\tsc\" --noEmit --project \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\tsconfig.app.json\")",
       "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\node_modules\\\\typescript\\\\bin\\\\tsc\" --noEmit --project \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\tsconfig.app.json\")",
       "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\node_modules\\\\eslint\\\\bin\\\\eslint.js\" \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\src\")",
-      "Bash(del \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\run_verify.ps1\")"
+      "Bash(del \"C:\\\\Users\\\\m.frank\\\\IdeaProjects\\\\privat\\\\captain-mercer\\\\frontend\\\\run_verify.ps1\")",
+      "Bash(npm run lint:*)",
+      "Bash(docker compose:*)"
     ]
   }
 }
