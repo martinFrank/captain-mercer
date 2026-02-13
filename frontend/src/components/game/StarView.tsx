@@ -15,8 +15,8 @@ const SERVICE_LABELS: Record<string, { label: string; description: string }> = {
 
 export function StarView({ star }: StarViewProps) {
     return (
-        <div className="star-view">
-            <div className="star-info">
+        <div className="game-panel">
+            <div className="game-card star-info">
                 <div className="star-info-header">{star.name}</div>
                 <div className="star-info-details">
                     <div className="star-info-detail">
@@ -28,13 +28,13 @@ export function StarView({ star }: StarViewProps) {
                 </div>
             </div>
 
-            <div className="service-list">
+            <div className="game-list">
                 {star.services.map(service => {
                     const info = SERVICE_LABELS[service.type] ?? { label: service.type, description: '' };
                     return (
-                        <div key={service.id} className="service-item">
+                        <div key={service.id} className="game-card service-item">
                             <div className="service-header">
-                                <span className="service-badge">[DIENST]</span>
+                                <span className="game-badge game-badge-info">[DIENST]</span>
                                 <span className="service-title">{info.label}</span>
                             </div>
                             <div className="service-description">{info.description}</div>
@@ -42,7 +42,7 @@ export function StarView({ star }: StarViewProps) {
                     );
                 })}
                 {star.services.length === 0 && (
-                    <div className="service-empty">Keine Dienstleistungen verfuegbar.</div>
+                    <div className="game-empty">Keine Dienstleistungen verfuegbar.</div>
                 )}
             </div>
         </div>

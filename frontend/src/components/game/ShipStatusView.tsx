@@ -12,7 +12,7 @@ interface ShipStatusViewProps {
 export function ShipStatusView({ captain, onSave, saving }: ShipStatusViewProps) {
     return (
         <div className="ship-status-view">
-            <div className="space-background">
+            <div className="game-panel space-background">
                 <div className="ship-container">
                     <div className="ship-icon">🚀</div>
                     <div className="ship-label">{captain.ship.name}</div>

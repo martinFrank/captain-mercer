@@ -10,11 +10,7 @@
 }
 
 .systems-panel {
-    background: rgba(0, 20, 40, 0.8);
     padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #334;
-    color: #aec;
 }
 
 .systems-title {
@@ -29,15 +25,7 @@
 }
 
 .system-status {
-    padding: 2px 6px;
-    border-radius: 4px;
     font-size: 0.8rem;
-    border: 1px solid transparent;
-}
-
-.system-status.active {
-    background: rgba(0, 255, 100, 0.1);
-    border-color: #0f0;
 }
 
 .system-status.inactive {

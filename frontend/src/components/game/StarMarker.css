@@ -87,9 +87,9 @@
     height: 12px;
 }
 
-/* Selected Star */
+/* Selected star - FTL jump target */
 .star-selected .star-icon {
-    box-shadow: 0 0 15px currentColor, 0 0 25px cyan;
+    box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
 }
 
 .star-selected::after {
@@ -97,22 +97,27 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 28px;
-    height: 28px;
     transform: translate(-50%, -50%);
-    border: 2px dashed cyan;
+    width: 30px;
+    height: 30px;
+    border: 1px dashed rgba(0, 200, 255, 0.7);
     border-radius: 50%;
-    animation: target-pulse 1.2s ease-in-out infinite;
-    pointer-events: none;
+    animation: target-pulse 1.5s infinite;
+}
+
+@keyframes target-pulse {
+    0% { width: 15px; height: 15px; opacity: 1; }
+    100% { width: 40px; height: 40px; opacity: 0; }
 }
 
 .star-selected .star-label {
     opacity: 1;
-    color: cyan;
+    color: #0cf;
     font-weight: bold;
 }
 
-@keyframes target-pulse {
-    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+/* Current star - ship location indicator */
+.star-current .star-icon {
+    outline: 2px solid #0f0;
+    outline-offset: 3px;
 }

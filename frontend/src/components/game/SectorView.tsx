@@ -33,6 +33,7 @@ export function SectorView({ sector, ship, selectedStarId, onStarSelect }: Secto
                         sectorWidth={sector.width}
                         sectorHeight={sector.height}
                         isSelected={star.id === selectedStarId}
+                        isCurrent={star.id === ship?.currentStarId}
                         onSelect={onStarSelect}
                     />
                 ))}

@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { Captain, Sector, Ship, CombatPhase } from '../../types/game';
-import { fetchGameState, saveGameState } from '../../api/gameApi';
-import { generateEnemyShip } from '../../utils/enemyGenerator';
+import { useState } from 'react';
+import { useGameState } from '../../hooks/useGameState';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ErrorMessage } from '../common/ErrorMessage';
 import { ViewToggle } from '../common/ViewToggle';
@@ -23,46 +21,31 @@ const VIEW_OPTIONS = [
 ];
 
 export default function GameView() {
-    const [captain, setCaptain] = useState<Captain | null>(null);
-    const [sector, setSector] = useState<Sector | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
+    const { captain, sector, loading, saving, saveGame, jumpToStar } = useGameState();
     const [viewMode, setViewMode] = useState('status');
     const [selectedStarId, setSelectedStarId] = useState<string | null>(null);
-    const [combatPhase, setCombatPhase] = useState<CombatPhase | null>(null);
-    const [enemyShip, setEnemyShip] = useState<Ship | null>(null);
 
-    useEffect(() => {
-        loadGame();
-    }, []);
-
-    const loadGame = async () => {
+    const handleSave = async () => {
         try {
-            const captainData = await fetchGameState();
-            setCaptain(captainData);
-            if (captainData.ship.sector) {
-                setSector(captainData.ship.sector);
-            }
-        } catch (error) {
-            console.error("Failed to load game:", error);
-        } finally {
-            setLoading(false);
+            await saveGame();
+            alert("Game saved successfully!");
+        } catch {
+            alert("Failed to save game.");
         }
     };
 
-    const handleSave = async () => {
-        if (!captain) return;
-        setSaving(true);
+    const handleStarSelect = (starId: string) => {
+        if (starId === captain?.ship.currentStarId) return;
+        setSelectedStarId(prev => prev === starId ? null : starId);
+    };
+
+    const handleFtlJump = async () => {
+        if (!selectedStarId) return;
         try {
-            const updated = await saveGameState(captain);
-            console.info("Game saved successfully!", updated);
-            setCaptain(updated);
-            alert("Game saved successfully!");
-        } catch (error) {
-            console.error("Failed to save game:", error);
-            alert("Failed to save game.");
-        } finally {
-            setSaving(false);
+            await jumpToStar(selectedStarId);
+            setSelectedStarId(null);
+        } catch {
+            alert("FTL jump failed.");
         }
     };
 
@@ -130,50 +113,10 @@ export default function GameView() {
         );
     }
 
-    const renderSectorContent = () => {
-        if (combatPhase === 'loot' && enemyShip) {
-            return (
-                <LootDialog
-                    enemyShipName={enemyShip.name}
-                    loot={enemyShip.equipment}
-                    onDismiss={handleLootDismiss}
-                />
-            );
-        }
-
-        if (combatPhase && combatPhase !== 'loot' && enemyShip) {
-            return (
-                <CombatView
-                    playerShip={captain.ship}
-                    enemyShip={enemyShip}
-                    phase={combatPhase}
-                    onTargetEnemy={handleTargetEnemy}
-                    onFire={handleFire}
-                />
-            );
-        }
-
-        return (
-            <>
-                {sector && (
-                    <SectorView
-                        sector={sector}
-                        ship={captain.ship}
-                        selectedStarId={selectedStarId}
-                        onStarSelect={handleStarSelect}
-                    />
-                )}
-                {selectedStarId && sector && (
-                    <div className="ftl-jump-panel">
-                        <span className="ftl-target-label">
-                            TARGET: {sector.stars.find(s => s.id === selectedStarId)?.name?.toUpperCase() ?? 'UNKNOWN'}
-                        </span>
-                        <button className="btn ftl-jump-btn" onClick={handleFtlJump}>FTL JUMP</button>
-                    </div>
-                )}
-            </>
-        );
-    };
+    const currentStar = sector?.stars.find(s => s.id === captain.ship.currentStarId) ?? null;
+    const selectedStarName = selectedStarId
+        ? sector?.stars.find(s => s.id === selectedStarId)?.name
+        : null;
 
     return (
         <div className="game-view-container">
@@ -191,9 +134,28 @@ export default function GameView() {
                         saving={saving}
                     />
                 )}
-                {viewMode === 'sector' && (
+                {viewMode === 'sector' && sector && (
                     <div className="sector-view-wrapper">
-                        {renderSectorContent()}
+                        <SectorView
+                            sector={sector}
+                            ship={captain.ship}
+                            selectedStarId={selectedStarId}
+                            onStarSelect={handleStarSelect}
+                        />
+                        {selectedStarId && (
+                            <div className="ftl-jump-panel">
+                                <span className="ftl-target-name">
+                                    TARGET: {selectedStarName}
+                                </span>
+                                <button
+                                    className={`btn btn-primary ftl-jump-btn ${saving ? 'state-saving' : ''}`}
+                                    onClick={handleFtlJump}
+                                    disabled={saving}
+                                >
+                                    {saving ? 'JUMPING...' : 'FTL JUMP'}
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
                 {viewMode === 'galactic' && sector && (
@@ -206,10 +168,9 @@ export default function GameView() {
                 {viewMode === 'quest' && (
                     <QuestView quests={captain.quests ?? []} />
                 )}
-                {viewMode === 'star' && sector && (() => {
-                    const currentStar = sector.stars.find(s => s.id === captain.ship.currentStarId);
-                    return currentStar ? <StarView star={currentStar} /> : null;
-                })()}
+                {viewMode === 'star' && currentStar && (
+                    <StarView star={currentStar} />
+                )}
             </div>
         </div>
     );
