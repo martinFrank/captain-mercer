@@ -1,5 +1,7 @@
-import type { Sector, Ship } from '../../types/game';
+import { useState, useCallback } from 'react';
+import type { Sector, Ship, Star } from '../../types/game';
 import { SectorView } from './SectorView';
+import { StarInfoPopup } from './StarInfoPopup';
 import './GalacticChartView.css';
 
 interface GalacticChartViewProps {
@@ -22,8 +24,26 @@ function buildGrid(sectors: Sector[]): (Sector | null)[][] {
     return grid;
 }
 
+function findStarById(sectors: Sector[], starId: string): Star | undefined {
+    for (const sector of sectors) {
+        const star = sector.stars.find(s => s.id === starId);
+        if (star) return star;
+    }
+    return undefined;
+}
+
 export function GalacticChartView({ sectors, currentSectorId, ship }: GalacticChartViewProps) {
     const grid = buildGrid(sectors);
+    const [selectedStar, setSelectedStar] = useState<Star | null>(null);
+
+    const handleStarSelect = useCallback((starId: string) => {
+        const star = findStarById(sectors, starId);
+        if (star) setSelectedStar(star);
+    }, [sectors]);
+
+    const handleDismiss = useCallback(() => {
+        setSelectedStar(null);
+    }, []);
 
     return (
         <div className="game-panel galactic-chart">
@@ -38,12 +58,14 @@ export function GalacticChartView({ sectors, currentSectorId, ship }: GalacticCh
                                 <SectorView
                                     sector={cell}
                                     ship={cell.id === currentSectorId ? ship : undefined}
+                                    onStarSelect={handleStarSelect}
                                 />
                             )}
                         </div>
                     ))
                 )}
             </div>
+            {selectedStar && <StarInfoPopup star={selectedStar} onDismiss={handleDismiss} />}
         </div>
     );
 }
