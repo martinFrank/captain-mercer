@@ -8,6 +8,8 @@ import { SectorView } from './SectorView';
 import { GalacticChartView } from './GalacticChartView';
 import { QuestView } from './QuestView';
 import { StarView } from './StarView';
+import { CombatView } from './CombatView';
+import { LootDialog } from './LootDialog';
 import './GameView.css';
 
 const VIEW_OPTIONS = [
@@ -47,6 +49,54 @@ export default function GameView() {
         }
     };
 
+    const handleViewChange = (key: string) => {
+        if (combatPhase !== null) return;
+        setViewMode(key);
+    };
+
+    const handleStarSelect = (starId: string) => {
+        if (!captain || starId === captain.ship.currentStarId) return;
+        setSelectedStarId(prev => prev === starId ? null : starId);
+    };
+
+    const handleFtlJump = async () => {
+        if (!captain || !sector || !selectedStarId) return;
+        const targetStar = sector.stars.find(s => s.id === selectedStarId);
+        if (!targetStar) return;
+
+        const updatedShip = { ...captain.ship, currentStarId: targetStar.id, currentStarName: targetStar.name };
+        const updatedCaptain = { ...captain, ship: updatedShip };
+
+        try {
+            const saved = await saveGameState(updatedCaptain);
+            setCaptain(saved);
+            if (saved.ship.sector) {
+                setSector(saved.ship.sector);
+            }
+        } catch (error) {
+            console.error("FTL jump failed:", error);
+            return;
+        }
+
+        setSelectedStarId(null);
+        setEnemyShip(generateEnemyShip());
+        setCombatPhase('engage');
+    };
+
+    const handleTargetEnemy = () => {
+        setCombatPhase('targeted');
+    };
+
+    const handleFire = () => {
+        setCombatPhase('destroyed');
+        setTimeout(() => setCombatPhase('loot'), 1500);
+    };
+
+    const handleLootDismiss = () => {
+        setCombatPhase(null);
+        setEnemyShip(null);
+    };
+
     if (loading) {
         return (
             <div className="game-view-container">
@@ -73,7 +123,7 @@ export default function GameView() {
             <ViewToggle
                 options={VIEW_OPTIONS}
                 active={viewMode}
-                onChange={setViewMode}
+                onChange={handleViewChange}
             />
 
             <div className="game-content-area">
