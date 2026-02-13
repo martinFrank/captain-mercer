@@ -5,7 +5,7 @@ interface StarViewProps {
     star: Star;
 }
 
-const SERVICE_LABELS: Record<string, { label: string; description: string }> = {
+export const SERVICE_LABELS: Record<string, { label: string; description: string }> = {
     TRADING_PLATFORM: { label: 'Handelsplattform', description: 'Handel mit Guetern und Rohstoffen' },
     REPAIR_SHOP: { label: 'Reparaturwerkstatt', description: 'Reparaturen und neue Ausruestung' },
     BULLETIN_BOARD: { label: 'Schwarzes Brett', description: 'Informationen und Nachrichten' },
